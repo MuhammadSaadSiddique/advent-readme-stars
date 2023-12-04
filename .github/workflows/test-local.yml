@@ -1,20 +1,19 @@
-name: Test action from local ⭐
+name: Update README ⭐
 on:
+  schedule:
+    - cron: "1 */12 * * *"  # Every 4 hours
   workflow_dispatch:
-
 jobs:
   update-readme:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v2
-      - uses: ./
+      - uses: k2bd/advent-readme-stars@v1
         with:
-          userId: 1739374 
+          userId: 1739374
           leaderboardId: 3172879
           sessionCookie: ${{ secrets.AOC_SESSION }}
-          headerPrefix: "###"
-          tableMarker: "<!--- advent_readme_stars table example --->"
-          year: 2023
       - uses: stefanzweifel/git-auto-commit-action@v4
         with:
           commit_message: Update README stars
+
