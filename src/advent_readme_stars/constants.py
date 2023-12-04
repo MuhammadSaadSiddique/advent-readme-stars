@@ -20,7 +20,7 @@ STAR_SYMBOL = os.environ.get("INPUT_STARSYMBOL", "")
 #: Year to query for
 YEAR = int(os.environ.get("INPUT_YEAR") or most_recent_advent_year())
 
-years=os.environ.get("INPUT_YEARS")
+# YEARS=os.environ.get("INPUT_YEARS")
 
 #: Table header prefix
 HEADER_PREFIX = os.environ.get("INPUT_HEADERPREFIX", "")
