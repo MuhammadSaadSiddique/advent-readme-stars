@@ -17,10 +17,11 @@ TABLE_MARKER = os.environ.get("INPUT_TABLEMARKER", "")
 #: Star symbol to insert in the table
 STAR_SYMBOL = os.environ.get("INPUT_STARSYMBOL", "")
 
-#: Year to query for
+#: Years to query for
 YEAR = os.environ.get("INPUT_YEAR") or most_recent_advent_year_list()
 
-YEARS = int(os.environ.get("INPUT_YEARS")  or most_recent_advent_year_())
+#: Year to query for
+YEARS = int(os.environ.get("INPUT_YEARS")  or most_recent_advent_year())
 
 #: Table header prefix
 HEADER_PREFIX = os.environ.get("INPUT_HEADERPREFIX", "")
