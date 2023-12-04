@@ -55,11 +55,11 @@ def insert_table(lines: List[str]) -> List[str]:
         
         for star_info in stars_info:
             name=star_info.name
-            score=star_info.local_score
+            score=star_info.score
             day_url = f"{ADVENT_URL}/{y}/day/{star_info.day}"
             day_text = f"[Day {star_info.day}]({day_url})"
-            part_1_text = STAR_SYMBOL if star_info.part_1 else " "
-            part_2_text = STAR_SYMBOL if star_info.part_2 else " "
+            part_1_text = STAR_SYMBOL+ str(star_info.part_1ts) if star_info.part_1 else " "
+            part_2_text = STAR_SYMBOL+ str(star_info.part_2ts) if star_info.part_2 else " "
             to_insert.append(f"| {name} | {score} | {day_text} | {part_1_text} | {part_2_text} |")
 
     return lines[:table_location] + to_insert + lines[table_location:]
