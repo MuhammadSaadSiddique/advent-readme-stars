@@ -5,8 +5,7 @@ from advent_readme_stars.constants import (
     HEADER_PREFIX,
     STAR_SYMBOL,
     TABLE_MARKER,
-    YEAR,
-    Years,
+    YEAR
 )
 from advent_readme_stars.progress import get_progress
 
@@ -43,7 +42,7 @@ def insert_table(lines: List[str]) -> List[str]:
             break
     else:
         return lines
-    for year in years.split(','):
+    for year in YEAR.split(','):
         to_insert = [
             TABLE_MARKER,
             f"{HEADER_PREFIX} {year} Results",
