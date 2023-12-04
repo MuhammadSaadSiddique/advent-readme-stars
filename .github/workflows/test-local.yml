@@ -8,13 +8,13 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v2
-      - uses: k2bd/advent-readme-stars@v1
+      - uses: MuhammadSaadSiddique/advent-readme-stars@v1
         with:
           userId: 1739374
           leaderboardId: 1739374
           sessionCookie: ${{ secrets.AOC_SESSION }}
           years: 2022,2021,2023
-      - uses: stefanzweifel/git-auto-commit-action@v4
+      - uses: stefanzweifel/git-auto-commit-action@v5
         with:
           commit_message: Update README stars
 
