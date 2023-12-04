@@ -20,9 +20,8 @@ def get_progress(y) -> Generator[DayProgress, None, None]:
 
     leaderboard_info = res.json()
     
-    file = open(f"{y}.py", 'w')
-    file.write(leaderboard_info)
-    file.close()
+    with open(f"{y}.py", 'w') as f:
+        json.dump(data, f)
     for member,detail in leaderboard_info["members"].items():
         stars = member["completion_day_level"]
     
