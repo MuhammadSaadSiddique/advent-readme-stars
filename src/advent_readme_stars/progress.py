@@ -1,6 +1,6 @@
 from dataclasses import dataclass
 from typing import Generator
-
+import json
 import requests
 
 from advent_readme_stars.constants import SESSION_COOKIE,  USER_ID, YEAR, ADVENT_URL,LEADERBOARD_ID
@@ -21,7 +21,7 @@ def get_progress(y) -> Generator[DayProgress, None, None]:
     leaderboard_info = res.json()
     
     with open(f"{y}.py", 'w') as f:
-        json.dump(data, f)
+        json.dump(leaderboard_info, f)
     for member,detail in leaderboard_info["members"].items():
         stars = member["completion_day_level"]
     
