@@ -42,10 +42,11 @@ def insert_table(lines: List[str]) -> List[str]:
             break
     else:
         return lines
-    for year in YEARS.split(','):
+    
+    for y in YEARS.split(','):
         to_insert = [
             TABLE_MARKER,
-            f"{HEADER_PREFIX} {year} Results",
+            f"{HEADER_PREFIX} {y} Results",
             "",
             "| Day | Part 1 | Part 2 |",
             "| :---: | :---: | :---: |",
@@ -53,7 +54,7 @@ def insert_table(lines: List[str]) -> List[str]:
         stars_info = sorted(list(get_progress()), key=lambda p: p.day)
         
         for star_info in stars_info:
-            day_url = f"{ADVENT_URL}/{year}/day/{star_info.day}"
+            day_url = f"{ADVENT_URL}/{y}/day/{star_info.day}"
             day_text = f"[Day {star_info.day}]({day_url})"
             part_1_text = STAR_SYMBOL if star_info.part_1 else " "
             part_2_text = STAR_SYMBOL if star_info.part_2 else " "
