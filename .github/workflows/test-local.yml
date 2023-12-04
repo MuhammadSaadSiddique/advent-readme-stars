@@ -9,7 +9,8 @@ jobs:
       - uses: actions/checkout@v2
       - uses: ./
         with:
-          userId: 3172879
+          userId: 1739374 
+          leaderboardId: 3172879
           sessionCookie: ${{ secrets.AOC_SESSION }}
           headerPrefix: "###"
           tableMarker: "<!--- advent_readme_stars table example --->"
