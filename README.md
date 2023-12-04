@@ -12,7 +12,7 @@ This [action](https://github.com/marketplace/actions/advent-readme-stars) adds a
 
 | Day | Part 1 | Part 2 |
 | :---: | :---: | :---: |
-<!--- advent_readme_stars table example --->
+<!--- advent_readme_stars table --->
 
 ## Quickstart
 
