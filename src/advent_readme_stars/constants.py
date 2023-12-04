@@ -1,6 +1,6 @@
 import os
 
-from advent_readme_stars.advent import most_recent_advent_year
+from advent_readme_stars.advent import most_recent_advent_year,most_recent_advent_year_list 
 
 #: Advent of Code user ID
 USER_ID = os.environ.get("INPUT_USERID", "")
@@ -18,9 +18,9 @@ TABLE_MARKER = os.environ.get("INPUT_TABLEMARKER", "")
 STAR_SYMBOL = os.environ.get("INPUT_STARSYMBOL", "")
 
 #: Year to query for
-YEAR = os.environ.get("INPUT_YEAR") or most_recent_advent_year()
+YEAR = os.environ.get("INPUT_YEAR") or most_recent_advent_year_list()
 
-YEARS = os.environ.get("INPUT_YEARS") 
+YEARS = int(os.environ.get("INPUT_YEARS")  or most_recent_advent_year_())
 
 #: Table header prefix
 HEADER_PREFIX = os.environ.get("INPUT_HEADERPREFIX", "")
