@@ -48,17 +48,19 @@ def insert_table(lines: List[str]) -> List[str]:
             TABLE_MARKER,
             f"{HEADER_PREFIX} {y} Results",
             "",
-            "| Day | Part 1 | Part 2 |",
-            "| :---: | :---: | :---: |",
+            "| Name  | Score | Day | Part 1 | Part 2 |",
+            "| :---:  | :---: |:---:| :---: | :---: |",
         ]
-        stars_info = sorted(list(get_progress()), key=lambda p: p.day)
+        stars_info = sorted(list(get_progress(y)), key=lambda p: p.day)
         
         for star_info in stars_info:
+            name=star_info.name
+            score=star_info.local_score
             day_url = f"{ADVENT_URL}/{y}/day/{star_info.day}"
             day_text = f"[Day {star_info.day}]({day_url})"
             part_1_text = STAR_SYMBOL if star_info.part_1 else " "
             part_2_text = STAR_SYMBOL if star_info.part_2 else " "
-            to_insert.append(f"| {year} | {day_text} | {part_1_text} | {part_2_text} |")
+            to_insert.append(f"| {name} | {score} | {day_text} | {part_1_text} | {part_2_text} |")
 
     return lines[:table_location] + to_insert + lines[table_location:]
 
