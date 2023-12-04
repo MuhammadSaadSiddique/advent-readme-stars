@@ -14,7 +14,6 @@ jobs:
           leaderboardId: 1739374
           sessionCookie: ${{ secrets.AOC_SESSION }}
           year: 2022,2021,2023
-          years: 2022
       - uses: stefanzweifel/git-auto-commit-action@v5
         with:
           commit_message: Update README stars
