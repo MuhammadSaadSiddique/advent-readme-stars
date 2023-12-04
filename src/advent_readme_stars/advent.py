@@ -9,4 +9,4 @@ def most_recent_advent_year(time: datetime = None) -> int:
 
     if time.month < 12:
         return time.year - 1
-    return time.year
+    return str(time.year)+","
