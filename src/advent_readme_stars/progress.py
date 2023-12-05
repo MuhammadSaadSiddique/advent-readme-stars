@@ -2,7 +2,7 @@ from dataclasses import dataclass
 from typing import Generator
 import json
 import requests
-
+import os
 from advent_readme_stars.constants import SESSION_COOKIE,  USER_ID, YEAR, ADVENT_URL,LEADERBOARD_ID
 
 
