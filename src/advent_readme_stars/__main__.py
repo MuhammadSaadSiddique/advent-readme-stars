@@ -87,14 +87,14 @@ if __name__ == "__main__":
         # leaderboard_info=json.load(f)
     
     def insert_table(lines: List[str]) -> List[str]: 
-        # table_location = None
-        # for i, line in enumerate(lines):
-        #     if line.strip() == TABLE_MARKER:
-        #         table_location = i
-        #         break
-        # else:
-        #     return lines
-        # print(table_location)
+        table_location = None
+        for i, line in enumerate(lines):
+            if line.strip() == TABLE_MARKER:
+                table_location = i
+                break
+        else:
+            return lines
+        print(table_location)
         
         to_insert=[  ]
         
@@ -150,7 +150,7 @@ if __name__ == "__main__":
             # toinsert.append(f"| {name} | {score} {line} ")
             to_insert.append(toinsert)
         # print(toinsert)
-        return lines+to_insert
+        return lines[:table_location] + to_insert + lines[table_location:]
     def remove_existing_table(lines: List[str]) -> List[str]:
         """
         If there's an existing table, it should be between two table markers.
