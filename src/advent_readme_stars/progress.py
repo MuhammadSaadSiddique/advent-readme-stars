@@ -20,7 +20,7 @@ class DayProgress:
 def get_progress(y) -> Generator[DayProgress, None, None]:
     if os.path.exists(f"{y}.json"):
         with open(f"{y}.json", 'r') as f:
-        leaderboard_info=json.load(f)
+            leaderboard_info=json.load(f)
     else:
         STARS_ENDPOINT = f"{ADVENT_URL}/{y}/leaderboard/private/view/{LEADERBOARD_ID}.json"
         res = requests.get(STARS_ENDPOINT, cookies={"session": SESSION_COOKIE})
