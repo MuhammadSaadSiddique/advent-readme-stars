@@ -1,7 +1,7 @@
 from datetime import datetime
 
 
-def most_recent_advent_year_list(time: datetime = None) -> int:
+def most_recent_advent_year_list(time: datetime = None) -> str:
     """
     Get the year of the most recent advent
     """
