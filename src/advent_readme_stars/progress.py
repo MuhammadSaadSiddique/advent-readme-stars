@@ -18,15 +18,19 @@ class DayProgress:
 
 
 def get_progress(y) -> Generator[DayProgress, None, None]:
-    STARS_ENDPOINT = f"{ADVENT_URL}/{y}/leaderboard/private/view/{LEADERBOARD_ID}.json"
-    res = requests.get(STARS_ENDPOINT, cookies={"session": SESSION_COOKIE})
-    res.raise_for_status()
-
-    leaderboard_info = res.json()
+    if os.path.exists(f"{y}.json"):
+        with open(f"{y}.json", 'r') as f:
+        leaderboard_info=json.load(f)
+    else:
+        STARS_ENDPOINT = f"{ADVENT_URL}/{y}/leaderboard/private/view/{LEADERBOARD_ID}.json"
+        res = requests.get(STARS_ENDPOINT, cookies={"session": SESSION_COOKIE})
+        res.raise_for_status()
     
-    with open(f"{y}.json", 'w') as f:
-        json.dump(leaderboard_info, f)
-    members={}
+        leaderboard_info = res.json()
+    
+        with open(f"{y}.json", 'w') as f:
+            json.dump(leaderboard_info, f)
+    # members={}
     for member,detail in leaderboard_info["members"].items():
         # print(member,detail)
         
@@ -44,6 +48,6 @@ def get_progress(y) -> Generator[DayProgress, None, None]:
                 part_2="2" in completed,
                 part_2ts=parts["2"]["get_star_ts"] if "2" in completed else -1,
             )
-            members[member]=dp
+            # members[member]=dp
             # print(dp)
             yield dp
