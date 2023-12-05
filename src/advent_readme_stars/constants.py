@@ -12,10 +12,10 @@ SESSION_COOKIE = os.environ.get("INPUT_SESSIONCOOKIE", "")
 LEADERBOARD_ID = os.environ.get("INPUT_LEADERBOARDID", "") or USER_ID
 
 #: Marker in the README to find
-TABLE_MARKER = os.environ.get("INPUT_TABLEMARKER", "")
+TABLE_MARKER = os.environ.get("INPUT_TABLEMARKER", "<!--- advent_readme_stars table --->")
 
 #: Star symbol to insert in the table
-STAR_SYMBOL = os.environ.get("INPUT_STARSYMBOL", "")
+STAR_SYMBOL = os.environ.get("INPUT_STARSYMBOL", "<!--- advent_readme_stars table --->")
 
 #: Years to query for
 YEAR = os.environ.get("INPUT_YEAR") or most_recent_advent_year_list()
