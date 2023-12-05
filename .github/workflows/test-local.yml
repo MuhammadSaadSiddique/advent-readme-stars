@@ -7,13 +7,13 @@ jobs:
   update-readme:
     runs-on: ubuntu-latest
     steps:
-      - uses: actions/checkout@v2
+      - uses: actions/checkout@v4
       - uses: ./
         with:
           userId: 1739374
           leaderboardId: 1739374
           sessionCookie: ${{ secrets.AOC_SESSION }}
-          year: 2022,2021,2023
+          year: 2021,2022,2023
       - uses: stefanzweifel/git-auto-commit-action@v5
         with:
           commit_message: Update README stars
