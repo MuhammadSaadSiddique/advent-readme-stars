@@ -8,4 +8,6 @@ if __name__ == "__main__":
     edited = update_readme(lines)
 
     with open(README_LOCATION, "w") as f:
-        f.writelines([line + "\n" for line in edited])
+        for to_insert in edited:
+            for line in to_insert:
+                f.writelines([line + "\n"])
