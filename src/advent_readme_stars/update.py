@@ -61,7 +61,7 @@ def insert_table(lines: List[str]) -> List[str]:
             part_1_text = STAR_SYMBOL+ str(star_info.part_1ts) if star_info.part_1 else " "
             part_2_text = STAR_SYMBOL+ str(star_info.part_2ts) if star_info.part_2 else " "
             toinsert.append(f"| {name} | {score} | {day_text} | {part_1_text} | {part_2_text} |")
-        toinsert.append(toinsert)
+        to_insert.append(toinsert)
     return lines[:table_location] + to_insert + lines[table_location:]
 
 
