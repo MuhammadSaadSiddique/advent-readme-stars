@@ -57,7 +57,7 @@ def insert_table(lines: List[str]) -> List[str]:
             name=star_info.name
             score=star_info.score
             day_url = f"{ADVENT_URL}/{y}/day/{star_info.day}"
-            day_text = f"[Day {star_info.day + y}]({day_url})"
+            day_text = f"[Day {star_info.day + str(y)}]({day_url})"
             part_1_text = STAR_SYMBOL+ str(star_info.part_1ts) if star_info.part_1 else " "
             part_2_text = STAR_SYMBOL+ str(star_info.part_2ts) if star_info.part_2 else " "
             toinsert.append(f"| {name} | {score} | {day_text} | {part_1_text} | {part_2_text} |")
