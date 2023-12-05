@@ -166,7 +166,7 @@ if __name__ == "__main__":
         """
         Take the contents of a readme file and update them
         """
-        reduced = []#remove_existing_table(readme)
+        reduced = remove_existing_table(readme)
         
         new_readme = insert_table(reduced)
     
