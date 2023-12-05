@@ -4,6 +4,7 @@ import json
 import requests
 import os
 from advent_readme_stars.constants import SESSION_COOKIE,  USER_ID, YEAR, ADVENT_URL,LEADERBOARD_ID
+from advent_readme_stars.advent import most_recent_advent_year
 
 
 @dataclass(frozen=True, eq=True)
@@ -18,7 +19,7 @@ class DayProgress:
 
 
 def get_progress(y) -> Generator[DayProgress, None, None]:
-    if os.path.exists(f"{y}.json"):
+    if os.path.exists(f"{y}.json") or int(y)!=most_recent_advent_year():
         with open(f"{y}.json", 'r') as f:
             leaderboard_info=json.load(f)
     else:
