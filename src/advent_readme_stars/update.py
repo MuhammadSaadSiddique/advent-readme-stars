@@ -42,26 +42,26 @@ def insert_table(lines: List[str]) -> List[str]:
             break
     else:
         return lines
-    
+    to_insert=[]
     for y in YEAR.split(','):
-        to_insert = [
+        toinsert = [
             TABLE_MARKER,
             f"{HEADER_PREFIX} {y} Results",
             "",
-            "| Name  | Score | Day | Part 1 | Part 2 |",
+            "| Name  | Score | Day | Part 1  | Part 2 |",
             "| :---:  | :---: |:---:| :---: | :---: |",
         ]
-        stars_info = sorted(list(get_progress(y)), key=lambda p: p.day)
+        stars_info = sorted(list(get_progress(y)), key=lambda p: p.score)
         
         for star_info in stars_info:
             name=star_info.name
             score=star_info.score
             day_url = f"{ADVENT_URL}/{y}/day/{star_info.day}"
-            day_text = f"[Day {star_info.day}]({day_url})"
+            day_text = f"[Day {star_info.day + y}]({day_url})"
             part_1_text = STAR_SYMBOL+ str(star_info.part_1ts) if star_info.part_1 else " "
             part_2_text = STAR_SYMBOL+ str(star_info.part_2ts) if star_info.part_2 else " "
-            to_insert.append(f"| {name} | {score} | {day_text} | {part_1_text} | {part_2_text} |")
-
+            toinsert.append(f"| {name} | {score} | {day_text} | {part_1_text} | {part_2_text} |")
+        toinsert.append(toinsert)
     return lines[:table_location] + to_insert + lines[table_location:]
 
 
