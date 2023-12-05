@@ -94,12 +94,12 @@ if __name__ == "__main__":
                 break
         else:
             return lines
-        print(table_location)
+        # print(table_location)
         
         to_insert=[  ]
         
         for y in YEAR.split(','):
-            print(y)
+            # print(y)
             toinsert = [
                f"## {y} Results"
             ]
@@ -197,7 +197,7 @@ if __name__ == "__main__":
             # for line in to_insert:
                 # print(type(line))
                 # f.writelines([line + "\n"])
-            print(type(to_insert))
+            # print(type(to_insert))
             
             if type(to_insert)==list:
                 for line in to_insert:
