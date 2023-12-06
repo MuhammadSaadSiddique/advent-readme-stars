@@ -28,11 +28,11 @@ if __name__ == "__main__":
         
     
     def timeconvert(membertime,day,year):
-        d=datetime.datetime(int(year),12,int(day),10,0,0)
+        d=datetime.datetime(int(year),12,int(day),10,0,0, datetime.timezone.utc)
         unix= int(time.mktime(d.timetuple()))
     
-        starttime = datetime.datetime.fromtimestamp(unix)
-        completeTime = datetime.datetime.fromtimestamp(membertime)
+        starttime = datetime.datetime.fromtimestamp(unix, datetime.timezone.utc)
+        completeTime = datetime.datetime.fromtimestamp(membertime, datetime.timezone.utc)
         print(starttime,completeTime,completeTime-starttime)
         return str(completeTime-starttime)
     def get_progress(y:str) -> dict:
@@ -194,7 +194,7 @@ if __name__ == "__main__":
     edited = update_readme(lines)
     with open(README_LOCATION, "w", encoding="utf-8") as f:
         # f.writelines(edited)
-        # f.write(f"{TABLE_MARKER}"+"\n")
+        f.write(f"{TABLE_MARKER}"+"\n")
         for to_insert in edited:
             # if type(to_insert)==list:
             #     for line in to_insert:
