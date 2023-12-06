@@ -53,31 +53,32 @@ if __name__ == "__main__":
             # print(i,member,sc)
             stars = detail["completion_day_level"]
             if detail["name"]!=None:
-                ft="| "+detail["name"] +" | " + str(detail["local_score"]) + " |" 
-                for d in range(1,26):
-                    parts=stars.get(str(d),{})
-                    completed = parts.keys()
-                    ft+= ("⭐"+str(parts["1"]["get_star_ts"]) if "1" in completed else "     ") +  ("⭐"+str(parts["2"]["get_star_ts"]) if "2" in completed else "     ") + " |"
-                # for day, parts in stars.items():
-                    # completed = parts.keys()
-                    # for i in range(detail["stars"]):
-                    #     ft+="⭐"
-                    # ft+= ("⭐"+str(parts["1"]["get_star_ts"]) if "1" in completed else "     ") + " | " + ("⭐"+str(parts["2"]["get_star_ts"]) if "2" in completed else "     ") + " |"
-                    # mb=Member(memberid=int(member),name=detail["name"],score=detail["local_score"],year=int(y),
-                    #           dayProgress=DayProgress(
-                    #         day=int(day),
-                    #         part_1="1" in completed,
-                    #         part_1ts=parts["1"]["get_star_ts"] if "1" in completed else -1 ,
-                    #         part_2="2" in completed,
-                    #         part_2ts=parts["2"]["get_star_ts"] if "2" in completed else -1,
-                    #     ))
-                    
-                    # members.update(mb)
-                    # members.append(mb)
-                    # print(dp)
-                members+=ft+"\n"
-                memb.update({member:[detail["name"],detail["local_score"],ft]})
-            # lines[:table_location] + ft + lines[table_location: ]
+                if detail["local_score"]>0:
+                    ft="| "+detail["name"] +" | " + str(detail["local_score"]) + " |" 
+                    for d in range(1,26):
+                        parts=stars.get(str(d),{})
+                        completed = parts.keys()
+                        ft+= ("⭐"+str(parts["1"]["get_star_ts"]) if "1" in completed else "     ") +  ("⭐"+str(parts["2"]["get_star_ts"]) if "2" in completed else "     ") + " |"
+                    # for day, parts in stars.items():
+                        # completed = parts.keys()
+                        # for i in range(detail["stars"]):
+                        #     ft+="⭐"
+                        # ft+= ("⭐"+str(parts["1"]["get_star_ts"]) if "1" in completed else "     ") + " | " + ("⭐"+str(parts["2"]["get_star_ts"]) if "2" in completed else "     ") + " |"
+                        # mb=Member(memberid=int(member),name=detail["name"],score=detail["local_score"],year=int(y),
+                        #           dayProgress=DayProgress(
+                        #         day=int(day),
+                        #         part_1="1" in completed,
+                        #         part_1ts=parts["1"]["get_star_ts"] if "1" in completed else -1 ,
+                        #         part_2="2" in completed,
+                        #         part_2ts=parts["2"]["get_star_ts"] if "2" in completed else -1,
+                        #     ))
+                        
+                        # members.update(mb)
+                        # members.append(mb)
+                        # print(dp)
+                    members+=ft+"\n"
+                    memb.update({member:[detail["name"],detail["local_score"],ft]})
+                # lines[:table_location] + ft + lines[table_location: ]
             
         return memb
     # print(get_progress(2023))
