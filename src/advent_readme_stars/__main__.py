@@ -28,7 +28,7 @@ if __name__ == "__main__":
         
     
     def timeconvert(membertime,day,year):
-        d=datetime.datetime(int(year),12,int(day),10,0,0, datetime.timezone.utc)
+        d=datetime.datetime(int(year),12,int(day),10,0,0,0, datetime.timezone.utc)
         unix= int(time.mktime(d.timetuple()))
     
         starttime = datetime.datetime.fromtimestamp(unix, datetime.timezone.utc)
