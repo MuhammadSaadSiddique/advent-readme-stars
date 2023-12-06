@@ -1,13 +1,16 @@
 if __name__ == "__main__":
-    from dataclasses import dataclass
+   from dataclasses import dataclass
     from typing import Generator,  List
     import json
     import requests
+    import datetime
+    import time
+    from typing import List 
     # README_LOCATION="readme.md"
     # TABLE_MARKER="<!-- TABLE_MARKER -->"
     # ADVENT_URL= "https://adventofcode.com"
-    # STAR_SYMBOL = "⭐"
-    # YEAR="2022"
+    # STAR_SYMBOL = "<!--- advent_readme_stars table --->"
+    # YEAR="2023,2022"
     import os
     from advent_readme_stars.constants import README_LOCATION, SESSION_COOKIE,  USER_ID, YEAR, ADVENT_URL,LEADERBOARD_ID,TABLE_MARKER
     from advent_readme_stars.advent import most_recent_advent_year
@@ -24,21 +27,22 @@ if __name__ == "__main__":
     #         for line in to_insert:
     #             f.writelines([line + "\n"])
     
+    def day_totime(day,year):
+        d=datetime.datetime(year,12,day,10,0,0)
+        return int(time.mktime(d.timetuple()))
+    
+    def timeconvert(membertime,day,year):
+        unix=day_totime(int(day),int(year))
+    
+        datea = datetime.datetime.fromtimestamp(unix)
+        dateb = datetime.datetime.fromtimestamp(membertime)
+        return str(dateb-datea)
     def get_progress(y:str) -> dict:
         
         # print(y)
-        if os.path.exists(f"{y}.json") or int(y)!=most_recent_advent_year():
+        if os.path.exists(f"{y}.json"):
             with open(f"{y}.json", 'r') as f:
                 leaderboard_info=json.load(f)
-        else:
-            STARS_ENDPOINT = f"{ADVENT_URL}/{y}/leaderboard/private/view/{LEADERBOARD_ID}.json"
-            res = requests.get(STARS_ENDPOINT, cookies={"session": SESSION_COOKIE})
-            res.raise_for_status()
-        
-            leaderboard_info = res.json()
-        
-            with open(f"{y}.json", 'w') as f:
-                json.dump(leaderboard_info, f)
         # with open(f"{y}.json", 'r') as f:
         #     leaderboard_info=json.load(f)
         # leaderboard_info["members"] = sorted(leaderboard_info['members'], key=lambda x : x['local_score'], reverse=True)
@@ -52,33 +56,32 @@ if __name__ == "__main__":
             silverstartsymbol="⭐"
             # print(i,member,sc)
             stars = detail["completion_day_level"]
-            if detail["name"]!=None:
-                if detail["local_score"]>0:
-                    ft="| "+detail["name"] +" | " + str(detail["local_score"]) + " |" 
-                    for d in range(1,26):
-                        parts=stars.get(str(d),{})
-                        completed = parts.keys()
-                        ft+= ("⭐"+str(parts["1"]["get_star_ts"]) if "1" in completed else "     ") +  ("⭐"+str(parts["2"]["get_star_ts"]) if "2" in completed else "     ") + " |"
-                    # for day, parts in stars.items():
-                        # completed = parts.keys()
-                        # for i in range(detail["stars"]):
-                        #     ft+="⭐"
-                        # ft+= ("⭐"+str(parts["1"]["get_star_ts"]) if "1" in completed else "     ") + " | " + ("⭐"+str(parts["2"]["get_star_ts"]) if "2" in completed else "     ") + " |"
-                        # mb=Member(memberid=int(member),name=detail["name"],score=detail["local_score"],year=int(y),
-                        #           dayProgress=DayProgress(
-                        #         day=int(day),
-                        #         part_1="1" in completed,
-                        #         part_1ts=parts["1"]["get_star_ts"] if "1" in completed else -1 ,
-                        #         part_2="2" in completed,
-                        #         part_2ts=parts["2"]["get_star_ts"] if "2" in completed else -1,
-                        #     ))
-                        
-                        # members.update(mb)
-                        # members.append(mb)
-                        # print(dp)
-                    members+=ft+"\n"
-                    memb.update({member:[detail["name"],detail["local_score"],ft]})
-                # lines[:table_location] + ft + lines[table_location: ]
+            if detail["name"]!=None and detail["local_score"]!=0:
+                ft="| "+detail["name"] +" | " + str(detail["local_score"]) + " |" 
+                for d in range(1,26):
+                    parts=stars.get(str(d),{})
+                    completed = parts.keys()
+                    ft+= ("⭐"+timeconvert(parts["1"]["get_star_ts"],d,y) if "1" in completed else "     ") +  ("⭐"+timeconvert(parts["2"]["get_star_ts"],d,y) if "2" in completed else "     ") + " |"
+                # for day, parts in stars.items():
+                    # completed = parts.keys()
+                    # for i in range(detail["stars"]):
+                    #     ft+="⭐"
+                    # ft+= ("⭐"+str(parts["1"]["get_star_ts"]) if "1" in completed else "     ") + " | " + ("⭐"+str(parts["2"]["get_star_ts"]) if "2" in completed else "     ") + " |"
+                    # mb=Member(memberid=int(member),name=detail["name"],score=detail["local_score"],year=int(y),
+                    #           dayProgress=DayProgress(
+                    #         day=int(day),
+                    #         part_1="1" in completed,
+                    #         part_1ts=parts["1"]["get_star_ts"] if "1" in completed else -1 ,
+                    #         part_2="2" in completed,
+                    #         part_2ts=parts["2"]["get_star_ts"] if "2" in completed else -1,
+                    #     ))
+                    
+                    # members.update(mb)
+                    # members.append(mb)
+                    # print(dp)
+                members+=ft+"\n"
+                memb.update({member:[detail["name"],detail["local_score"],ft]})
+            # lines[:table_location] + ft + lines[table_location: ]
             
         return memb
     # print(get_progress(2023))
@@ -88,13 +91,13 @@ if __name__ == "__main__":
         # leaderboard_info=json.load(f)
     
     def insert_table(lines: List[str]) -> List[str]: 
-        table_location = None
-        for i, line in enumerate(lines):
-            if line.strip() == TABLE_MARKER:
-                table_location = i
-                break
-        else:
-            return lines
+        # table_location = None
+        # for i, line in enumerate(lines):
+        #     if line.strip() == TABLE_MARKER:
+        #         table_location = i
+        #         break
+        # else:
+        #     return lines
         # print(table_location)
         
         to_insert=[  ]
@@ -151,7 +154,7 @@ if __name__ == "__main__":
             # toinsert.append(f"| {name} | {score} {line} ")
             to_insert.append(toinsert)
         # print(toinsert)
-        return lines[:table_location] + to_insert + lines[table_location:]
+        return lines+to_insert
     def remove_existing_table(lines: List[str]) -> List[str]:
         """
         If there's an existing table, it should be between two table markers.
@@ -206,11 +209,3 @@ if __name__ == "__main__":
             else:   
                 f.writelines([to_insert + "\n"])
             
-                
-               
-                # continue    
-            
-            
-        #     print(to_insert)
-            # for line in to_insert:
-            #     f.writelines([line + "\n"])
