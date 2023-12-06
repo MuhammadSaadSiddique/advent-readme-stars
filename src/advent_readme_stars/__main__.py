@@ -1,6 +1,4 @@
 if __name__ == "__main__":
-   from dataclasses import dataclass
-    from typing import Generator,  List
     import json
     import requests
     import datetime
