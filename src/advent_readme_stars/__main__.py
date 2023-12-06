@@ -25,15 +25,15 @@ if __name__ == "__main__":
     #         for line in to_insert:
     #             f.writelines([line + "\n"])
     
-    def day_totime(day,year):
-        d=datetime.datetime(year,12,day,10,0,0)
-        return int(time.mktime(d.timetuple()))
+        
     
     def timeconvert(membertime,day,year):
-        unix=day_totime(int(day),int(year))
+        d=datetime.datetime(int(year),12,int(day),10,0,0)
+        unix= int(time.mktime(d.timetuple()))
     
         starttime = datetime.datetime.fromtimestamp(unix)
         completeTime = datetime.datetime.fromtimestamp(membertime)
+        print(starttime,completeTime,completeTime-starttime)
         return str(completeTime-starttime)
     def get_progress(y:str) -> dict:
         
