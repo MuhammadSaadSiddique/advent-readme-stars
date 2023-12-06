@@ -37,13 +37,19 @@ if __name__ == "__main__":
         return str(completeTime-starttime)
     def get_progress(y:str) -> dict:
         
-        # print(y)
-        if os.path.exists(f"{y}.json"):
+        print(y)
+        if os.path.exists(f"{y}.json") or int(y)!=most_recent_advent_year():
             with open(f"{y}.json", 'r') as f:
                 leaderboard_info=json.load(f)
-        # with open(f"{y}.json", 'r') as f:
-        #     leaderboard_info=json.load(f)
-        # leaderboard_info["members"] = sorted(leaderboard_info['members'], key=lambda x : x['local_score'], reverse=True)
+        else:
+            STARS_ENDPOINT = f"{ADVENT_URL}/{y}/leaderboard/private/view/{LEADERBOARD_ID}.json"
+            res = requests.get(STARS_ENDPOINT, cookies={"session": SESSION_COOKIE})
+            res.raise_for_status()
+        
+            leaderboard_info = res.json()
+        
+            with open(f"{y}.json", 'w') as f:
+                json.dump(leaderboard_info, f)
         members=""
         memb={}
         
