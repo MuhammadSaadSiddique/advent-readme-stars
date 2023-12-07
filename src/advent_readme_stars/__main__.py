@@ -1,4 +1,5 @@
 if __name__ == "__main__":
+    from typing import List
     import datetime
     import time
     import json
