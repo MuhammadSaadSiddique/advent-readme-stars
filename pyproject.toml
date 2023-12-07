@@ -1,8 +1,8 @@
 [tool.poetry]
 name = "advent-readme-stars"
-version = "0.1.0"
+version = "0.2.0"
 description = ""
-authors = ["Kevin Duff <kevinkelduff@gmail.com>"]
+authors = ["Kevin Duff <kevinkelduff@gmail.com>", "Muhammad Saad Siddique 8msaad2387@gmail.com"]
 
 [tool.poetry.dependencies]
 python = "^3.8"
