@@ -34,7 +34,7 @@ if __name__ == "__main__":
     def get_progress(y:str) -> dict:
         
         # print(y)
-        if os.path.exists(f"{y}.json") or int(y)!=most_recent_advent_year():
+        if os.path.exists(f"{y}.json") and int(y)!=most_recent_advent_year():
             with open(f"{y}.json", 'r') as f:
                 leaderboard_info=json.load(f)
         else:
