@@ -4,14 +4,16 @@ if __name__ == "__main__":
     import time
     import json
     import requests
-    # README_LOCATION="readme.md"
-    # TABLE_MARKER="<!-- TABLE_MARKER -->"
-    # ADVENT_URL= "https://adventofcode.com"
-    # STAR_SYMBOL = "⭐"
-    # YEAR="2022"
+    README_LOCATION="index.html"
+    TABLE_MARKER="<!--- advent_readme_stars table --->"
+    ADVENT_URL= "https://adventofcode.com"
+    STAR_SYMBOL = "⭐"
+    YEAR="2023"
+    LEADERBOARD_ID=1739374
+    SESSION_COOKIE=""
     import os
-    from advent_readme_stars.constants import README_LOCATION, SESSION_COOKIE,  USER_ID, YEAR, ADVENT_URL,LEADERBOARD_ID,TABLE_MARKER
-    from advent_readme_stars.advent import most_recent_advent_year
+    # from advent_readme_stars.constants import README_LOCATION, SESSION_COOKIE,  USER_ID, YEAR, ADVENT_URL,LEADERBOARD_ID,TABLE_MARKER
+    # from advent_readme_stars.advent import most_recent_advent_year
     # YEAR="2023,2022,2021"
     
     # with open(README_LOCATION, "r") as f:
@@ -29,12 +31,12 @@ if __name__ == "__main__":
     
         starttime = datetime.datetime.fromtimestamp(unix, datetime.timezone.utc)
         completeTime = datetime.datetime.fromtimestamp(membertime, datetime.timezone.utc)
-        print(starttime,completeTime,completeTime-starttime)
+        # print(starttime,completeTime,completeTime-starttime)
         return str(completeTime-starttime)
     def get_progress(y:str) -> dict:
         
         # print(y)
-        if os.path.exists(f"{y}.json") or int(y)!=most_recent_advent_year():
+        if os.path.exists(f"{y}.json"):# and int(y)!="2023":
             with open(f"{y}.json", 'r') as f:
                 leaderboard_info=json.load(f)
         else:
@@ -61,11 +63,11 @@ if __name__ == "__main__":
             stars = detail["completion_day_level"]
             if detail["name"]!=None:
                 if detail["local_score"]>0:
-                    ft="<tr><td> "+detail["name"] +" </td><td> " + str(detail["local_score"]) + " </td><td>" 
+                    ft="<tr><th  class='headcol'> "+detail["name"] +" </th><th  class='headcol2'> " + str(detail["local_score"]) + " </th><td class='long'>" 
                     for d in range(1,26):
                         parts=stars.get(str(d),{})
                         completed = parts.keys()
-                        ft+= ("⭐"+timeconvert(parts["1"]["get_star_ts"],d,y) if "1" in completed else "     ") +  ("⭐"+timeconvert(parts["2"]["get_star_ts"],d,y) if "2" in completed else "     ") + " </td><td>"
+                        ft+= ("⭐"+timeconvert(parts["1"]["get_star_ts"],d,y) if "1" in completed else "     ") +  ("⭐"+timeconvert(parts["2"]["get_star_ts"],d,y) if "2" in completed else "     ") + " </td><td class='long'>"
                     # for day, parts in stars.items():
                         # completed = parts.keys()
                         # for i in range(detail["stars"]):
@@ -114,12 +116,12 @@ if __name__ == "__main__":
             
             # return to_insert
             # break
-            firstLine=f"<table> <thead><tr><th> Name  </th><th> Score </th><th>"
+            firstLine=f" <div class='divTable'><table> <thead><tr><th  class='headcol'> Name  </th><th  class='headcol2'> Score </th><th class='long'>"
             # thirdLine="<tr><td>:---:</td><td>:---:</td><td>"
             for day in range(1,26):
                 day_url = f"{ADVENT_URL}/{y}/day/{day}"
                 # firstLine += f"      [Day {day} {y}]({day_url})      </td><td>"
-                firstLine += f"  <a href=\"{day_url}\" > Day {day} {y} </a>   </th><th>"
+                firstLine += f"  <a href=\"{day_url}\" > Day {day} {y} </a>   </th><th class='long'>"
                 # thirdLine += ":---:</td><td>"
                 
             
@@ -157,7 +159,7 @@ if __name__ == "__main__":
             #     line+=f" | {part_1_text} | {part_2_text} |"
             # toinsert.append(f"| {name} | {score} {line} ")
             to_insert.append(toinsert)
-            toinsert.append("</table>")
+            toinsert.append("</table></div>")
         # print(toinsert)
         return lines[:table_location] + to_insert + lines[table_location:]
     def remove_existing_table(lines: List[str]) -> List[str]:
