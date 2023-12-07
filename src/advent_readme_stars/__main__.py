@@ -4,16 +4,16 @@ if __name__ == "__main__":
     import time
     import json
     import requests
-    README_LOCATION="index.html"
-    TABLE_MARKER="<!--- advent_readme_stars table --->"
-    ADVENT_URL= "https://adventofcode.com"
-    STAR_SYMBOL = "⭐"
-    YEAR="2023"
-    LEADERBOARD_ID=1739374
-    SESSION_COOKIE=""
+    # README_LOCATION="index.html"
+    # TABLE_MARKER="<!--- advent_readme_stars table --->"
+    # ADVENT_URL= "https://adventofcode.com"
+    # STAR_SYMBOL = "⭐"
+    # YEAR="2023"
+    # LEADERBOARD_ID=1739374
+    # SESSION_COOKIE=""
     import os
-    # from advent_readme_stars.constants import README_LOCATION, SESSION_COOKIE,  USER_ID, YEAR, ADVENT_URL,LEADERBOARD_ID,TABLE_MARKER
-    # from advent_readme_stars.advent import most_recent_advent_year
+    from advent_readme_stars.constants import README_LOCATION, SESSION_COOKIE,  USER_ID, YEAR, ADVENT_URL,LEADERBOARD_ID,TABLE_MARKER
+    from advent_readme_stars.advent import most_recent_advent_year
     # YEAR="2023,2022,2021"
     
     # with open(README_LOCATION, "r") as f:
@@ -36,20 +36,6 @@ if __name__ == "__main__":
     def get_progress(y:str) -> dict:
         
         # print(y)
-<<<<<<< HEAD
-        if os.path.exists(f"{y}.json"):# and int(y)!="2023":
-            with open(f"{y}.json", 'r') as f:
-                leaderboard_info=json.load(f)
-        else:
-            STARS_ENDPOINT = f"{ADVENT_URL}/{y}/leaderboard/private/view/{LEADERBOARD_ID}.json"
-            res = requests.get(STARS_ENDPOINT, cookies={"session": SESSION_COOKIE})
-            res.raise_for_status()
-        
-            leaderboard_info = res.json()
-        
-            with open(f"{y}.json", 'w') as f:
-                json.dump(leaderboard_info, f)
-=======
        
         STARS_ENDPOINT = f"{ADVENT_URL}/{y}/leaderboard/private/view/{LEADERBOARD_ID}.json"
         res = requests.get(STARS_ENDPOINT, cookies={"session": SESSION_COOKIE})
@@ -59,7 +45,6 @@ if __name__ == "__main__":
     
         with open(f"{y}.json", 'w') as f:
             json.dump(leaderboard_info, f)
->>>>>>> be00deb8450d865111c52520abcff2c3a57bfa12
         # with open(f"{y}.json", 'r') as f:
         #     leaderboard_info=json.load(f)
         # leaderboard_info["members"] = sorted(leaderboard_info['members'], key=lambda x : x['local_score'], reverse=True)
