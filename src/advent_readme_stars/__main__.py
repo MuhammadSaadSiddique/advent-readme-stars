@@ -34,8 +34,8 @@ if __name__ == "__main__":
     def get_progress(y:str) -> dict:
         
         # print(y)
-        if os.path.exists(f"../../{y}.json") or int(y)!=most_recent_advent_year():
-            with open(f"../../{y}.json", 'r') as f:
+        if os.path.exists(f"{y}.json") or int(y)!=most_recent_advent_year():
+            with open(f"{y}.json", 'r') as f:
                 leaderboard_info=json.load(f)
         else:
             STARS_ENDPOINT = f"{ADVENT_URL}/{y}/leaderboard/private/view/{LEADERBOARD_ID}.json"
@@ -44,7 +44,7 @@ if __name__ == "__main__":
         
             leaderboard_info = res.json()
         
-            with open(f"../../{y}.json", 'w') as f:
+            with open(f"{y}.json", 'w') as f:
                 json.dump(leaderboard_info, f)
         # with open(f"{y}.json", 'r') as f:
         #     leaderboard_info=json.load(f)
