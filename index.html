@@ -3,11 +3,16 @@
 <!DOCTYPE html>
 <html>
   <head>
-    <meta name="viewport" content="width=device-width" />
     <meta charset="utf-8" />
     <link rel="shortcut icon" type="image/x-icon" href="img/favicon.ico" />
-    <title>Pakistani - Advent of Code - Leaderboard</title>
+    <title>Pakistan - Advent of Code - Leaderboard</title>
+   
+<meta name="description" content="Pakistan - Advent of Code - Leaderboard">
+<meta name="keywords" content="Advent of code, Leaderboard, Advent of code Leaderboard, Pakistan Leaderboard">
+<meta name="author" content="Muhammad Saad Siddiqeue">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta name="next-head-count" content="4" />
+    
     <link
       rel="preload"
       href="5bb504ebc09c3433.css"
@@ -38,7 +43,7 @@
        th, td {
         border: 1px solid;
       } */
-      table {
+    table {
         overflow-y:scroll;
         border-collapse: separate;
         border-spacing: 0;
@@ -56,26 +61,7 @@
         white-space: nowrap;
         border-top-width: 0px;
       }
-      .headcol {
-        position: absolute;
-        width: 16em;
-        right: 80em;
-        top: auto;
-        border-top-width: 1px;
-        /*only relevant for first row*/
-        margin-top: -1px;
-        /*compensate for top border*/
-      }
-      .headcol2 {
-        position: absolute;
-        width: 6em;
-        right: 74em;
-        top: auto;
-        border-top-width: 1px;
-        /*only relevant for first row*/
-        margin-top: -1px;
-        /*compensate for top border*/
-      }
+      
       .headcol:before {
         content: '';
       }
@@ -86,10 +72,148 @@
       .divTable {
         width: 800px;
         overflow-x: scroll;
-        margin-left: 22em;
+        margin-left: 36em;
         overflow-y: visible;
         padding: 0;
       }
+
+@media (min-width:320px)  { 
+    .headcol {
+        position: absolute;
+        width: 16em;
+        right: 8em;
+        top: auto;
+        border-top-width: 1px;
+        /*only relevant for first row*/
+        margin-top: -1px;
+        /*compensate for top border*/
+      }
+      .headcol2 {
+        position: absolute;
+        width: 6em;
+        right: 2em;
+        top: auto;
+        border-top-width: 1px;
+        /*only relevant for first row*/
+        margin-top: -1px;
+        /*compensate for top border*/
+      }
+
+      /* smartphones, portrait iPhone, portrait 480x320 phones (Android) */ }
+@media (min-width:480px)  { /* smartphones, Android phones, landscape iPhone */ 
+    .headcol {
+        position: absolute;
+        width: 16em;
+        right: 14em;
+        top: auto;
+        border-top-width: 1px;
+        /*only relevant for first row*/
+        margin-top: -1px;
+        /*compensate for top border*/
+      }
+      .headcol2 {
+        position: absolute;
+        width: 6em;
+        right: 8em;
+        top: auto;
+        border-top-width: 1px;
+        /*only relevant for first row*/
+        margin-top: -1px;
+        /*compensate for top border*/
+      }
+  }
+@media (min-width:600px)  { /* portrait tablets, portrait iPad, e-readers (Nook/Kindle), landscape 800x480 phones (Android) */ 
+    .headcol {
+        position: absolute;
+        width: 16em;
+        right: 21em;
+        top: auto;
+        border-top-width: 1px;
+        /*only relevant for first row*/
+        margin-top: -1px;
+        /*compensate for top border*/
+      }
+      .headcol2 {
+        position: absolute;
+        width: 6em;
+        right: 15em;
+        top: auto;
+        border-top-width: 1px;
+        /*only relevant for first row*/
+        margin-top: -1px;
+        /*compensate for top border*/
+      }
+  
+}
+@media (min-width:800px)  { /* tablet, landscape iPad, lo-res laptops ands desktops */
+    .headcol {
+        position: absolute;
+        width: 16em;
+        right: 34em;
+        top: auto;
+        border-top-width: 1px;
+        /*only relevant for first row*/
+        margin-top: -1px;
+        /*compensate for top border*/
+      }
+      .headcol2 {
+        position: absolute;
+        width: 6em;
+        right: 28em;
+        top: auto;
+        border-top-width: 1px;
+        /*only relevant for first row*/
+        margin-top: -1px;
+        /*compensate for top border*/
+      }
+ 
+}
+@media (min-width:1025px) { /* big landscape tablets, laptops, and desktops */
+.headcol {
+        position: absolute;
+        width: 16em;
+        right: 47em;
+        top: auto;
+        border-top-width: 1px;
+        /*only relevant for first row*/
+        margin-top: -1px;
+        /*compensate for top border*/
+      }
+      .headcol2 {
+        position: absolute;
+        width: 6em;
+        right: 41em;
+        top: auto;
+        border-top-width: 1px;
+        /*only relevant for first row*/
+        margin-top: -1px;
+        /*compensate for top border*/
+      }
+ 
+}
+@media (min-width:1250px) { /* hi-res laptops and desktops */ 
+  .headcol {
+        position: absolute;
+        width: 16em;
+        right: 62em;
+        top: auto;
+        border-top-width: 1px;
+        /*only relevant for first row*/
+        margin-top: -1px;
+        /*compensate for top border*/
+      }
+      .headcol2 {
+        position: absolute;
+        width: 6em;
+        right: 56em;
+        top: auto;
+        border-top-width: 1px;
+        /*only relevant for first row*/
+        margin-top: -1px;
+        /*compensate for top border*/
+      }
+  
+}  
     </style>
     
   </head>
@@ -113,7 +237,7 @@
       </div>
     </div>
     <div >
-    <h2>Created By Muhammad Saad Siddique - Connect with me</h2>
+    <h3>Created By Muhammad Saad Siddique - Connect with me</h3>
     <p align="center" dir="auto">
       
       
@@ -128,10 +252,10 @@
     </br>
       <a href="#" title="free website hit counters"><img src="https://counter7.optistats.ovh/private/freecounterstat.php?c=gzynnsq22s37rlx2bqq8r5hptkrldssl" border="0" title="free website hit counters" alt="free website hit counters"></a>
       </br>
-      Others Pakistani can join it using the code <b>1739374-77ea5f22  </b>
+      Others Pakistan Citizens can join it using the code <b>1739374-77ea5f22  </b>
     </p>
   </div>
-        <h2>Pakistani Leaderboard</h2>
+        <h2>Pakistan Leaderboard</h2>
     <div align="center">
 <!--- advent_readme_stars table --->
 
