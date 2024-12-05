@@ -13,7 +13,7 @@ jobs:
           userId: 1739374
           leaderboardId: 1739374
           sessionCookie: ${{ secrets.AOC_SESSION }}
-          year: 2024
+          year: 2021,2022,2023,2024
           readmeLocation : "index.html"
       - uses: stefanzweifel/git-auto-commit-action@v5
         with:
