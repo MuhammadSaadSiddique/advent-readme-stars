@@ -98,6 +98,13 @@
       cursor: pointer;
     }
 
+    .nav-bar {
+      display: flex;
+      gap: 10px;
+      flex-wrap: wrap;
+      margin: 12px 0 0;
+    }
+
     .button--primary {
       background: #00a2ff;
       color: #0d1117;
@@ -444,6 +451,12 @@
       </div>
     </div>
 
+    <nav class="nav-bar" aria-label="Page navigation">
+      <a class="button button--primary" href="index.html">Leaderboard home</a>
+      <a class="button button--ghost" href="registration.html">Registration page</a>
+      <a class="button button--ghost" href="stats.html">Stats & high scores</a>
+    </nav>
+
 
     <section class="hero">
       <div class="hero__content">
@@ -452,7 +465,7 @@
         <p class="hero__subtitle">Follow the journey of local developers mastering daily puzzles and pushing Pakistan to
           the global stage.</p>
         <div class="hero__actions">
-          <a class="button button--primary" href="#register">Register for the event</a>
+          <a class="button button--primary" href="registration.html">Register for the event</a>
           <a class="button button--ghost" href="#leaderboard">Join the leaderboard</a>
         </div>
       </div>
@@ -505,10 +518,15 @@
           <ol class="actions__steps">
             <li>Sign in at <a href="https://adventofcode.com" target="_blank" rel="noreferrer">adventofcode.com</a>
               with GitHub, Google, or Reddit.</li>
+            <li>Reserve your competition spot by completing the <a href="registration.html">participant
+                registration form</a>.</li>
             <li>Visit the calendar in December to unlock the daily puzzles.</li>
             <li>Share your progress with the Pakistan community using our leaderboard code.</li>
           </ol>
-          <a class="button button--primary" href="https://adventofcode.com/">Go to Advent of Code</a>
+          <div class="hero__actions" style="padding-left:0;">
+            <a class="button button--primary" href="registration.html">Go to registration page</a>
+            <a class="button button--ghost" href="https://adventofcode.com/">Go to Advent of Code</a>
+          </div>
         </div>
         <div class="actions__card">
           <h3>Join the leaderboard</h3>
