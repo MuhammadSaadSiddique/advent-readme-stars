@@ -24,6 +24,194 @@
       overflow-x: hidden;
     }
 
+    .hero {
+      display: grid;
+      grid-template-columns: 2fr 1fr;
+      gap: 24px;
+      align-items: start;
+      padding: 24px;
+      margin-top: 18px;
+      border-radius: 16px;
+      background: linear-gradient(135deg, rgba(0, 162, 255, 0.16), rgba(12, 12, 12, 0.92));
+      color: #fff;
+    }
+
+    .hero__content {
+      display: flex;
+      flex-direction: column;
+      gap: 12px;
+    }
+
+    .hero__eyebrow {
+      letter-spacing: 0.05em;
+      font-weight: 700;
+      text-transform: uppercase;
+      color: #c9f0ff;
+      margin: 0;
+    }
+
+    .hero__title {
+      font-size: 32px;
+      margin: 0;
+      line-height: 1.2;
+    }
+
+    .hero__subtitle {
+      margin: 0;
+      color: #e4f6ff;
+      max-width: 720px;
+      line-height: 1.5;
+    }
+
+    .hero__actions {
+      display: flex;
+      gap: 12px;
+      flex-wrap: wrap;
+    }
+
+    .hero__card {
+      background: rgba(255, 255, 255, 0.08);
+      border: 1px solid rgba(255, 255, 255, 0.18);
+      border-radius: 12px;
+      padding: 16px;
+      color: #f7f7f7;
+      line-height: 1.5;
+      box-shadow: 0 10px 35px rgba(0, 0, 0, 0.15);
+    }
+
+    .hero__card h3 {
+      margin-top: 0;
+      margin-bottom: 8px;
+      font-size: 20px;
+    }
+
+    .button {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      padding: 10px 16px;
+      border-radius: 10px;
+      font-weight: 700;
+      text-decoration: none;
+      transition: transform 0.1s ease, box-shadow 0.1s ease;
+      border: 1px solid transparent;
+      cursor: pointer;
+    }
+
+    .nav-bar {
+      display: flex;
+      gap: 10px;
+      flex-wrap: wrap;
+      margin: 12px 0 0;
+    }
+
+    .button--primary {
+      background: #00a2ff;
+      color: #0d1117;
+      box-shadow: 0 10px 25px rgba(0, 162, 255, 0.35);
+    }
+
+    .button--ghost {
+      color: #00a2ff;
+      border-color: rgba(0, 162, 255, 0.55);
+      background: rgba(0, 162, 255, 0.1);
+    }
+
+    .button:hover {
+      transform: translateY(-2px);
+    }
+
+    .section__header {
+      display: flex;
+      align-items: baseline;
+      gap: 12px;
+      flex-wrap: wrap;
+      margin: 24px 0 12px;
+    }
+
+    .section__header h2 {
+      margin: 0;
+    }
+
+    .section__header p {
+      margin: 0;
+      color: #444;
+    }
+
+    .stats__grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+      gap: 12px;
+      margin-bottom: 18px;
+    }
+
+    .stat-card {
+      border: 1px solid #dfe5eb;
+      border-radius: 12px;
+      padding: 14px;
+      background: #f7fbff;
+      box-shadow: 0 6px 18px rgba(0, 0, 0, 0.05);
+    }
+
+    .stat-card__label {
+      margin: 0;
+      color: #355b75;
+      font-weight: 700;
+      text-transform: uppercase;
+      font-size: 12px;
+      letter-spacing: 0.05em;
+    }
+
+    .stat-card__value {
+      margin: 6px 0;
+      font-size: 28px;
+      color: #0d1117;
+      font-weight: 800;
+    }
+
+    .stat-card__meta {
+      margin: 0;
+      color: #355b75;
+    }
+
+    .actions__content {
+      display: grid;
+      grid-template-columns: 2fr 1fr;
+      gap: 18px;
+      align-items: start;
+    }
+
+    .actions__steps {
+      margin-top: 0;
+      padding-left: 20px;
+      line-height: 1.6;
+    }
+
+    .actions__card {
+      border: 1px solid #dfe5eb;
+      border-radius: 12px;
+      padding: 16px;
+      background: #fdfefe;
+      box-shadow: 0 6px 18px rgba(0, 0, 0, 0.05);
+    }
+
+    .actions__code {
+      font-family: monospace;
+      font-size: 20px;
+      letter-spacing: 0.06em;
+      padding: 10px 12px;
+      border-radius: 10px;
+      background: #0d1117;
+      color: #00a2ff;
+      display: inline-block;
+      margin: 8px 0;
+    }
+
+    .actions__caption {
+      margin: 0;
+      color: #355b75;
+    }
+
     .info-section {
       display: flex;
       flex-direction: column;
@@ -107,6 +295,19 @@
     @media (min-width:320px) {
 
       /* smartphones, portrait iPhone, portrait 480x320 phones (Android) */
+      .hero,
+      .actions__content {
+        grid-template-columns: 1fr;
+      }
+
+      .hero__title {
+        font-size: 24px;
+      }
+
+      .hero__card,
+      .actions__card {
+        width: 100%;
+      }
       .divTable {
         width: 100%;
       }
@@ -235,9 +436,9 @@
 
 </head>
 
-<body>
-  <div id="__next" data-reactroot="">
-    <div class="index_homeBackground___HIIi">
+  <body>
+    <div id="__next" data-reactroot="">
+      <div class="index_homeBackground___HIIi">
 
       <div class="index_header__25ySr">
         <img class="index_christmasTree__I6sGC" src="img/advent-of-code-tree.webp" alt="advent of code tree" width="117"
@@ -250,49 +451,134 @@
     </div>
   </div>
 
+    <nav class="nav-bar" aria-label="Page navigation">
+      <a class="button button--primary" href="index.html">Leaderboard home</a>
+      <a class="button button--ghost" href="registration.html">Registration page</a>
+      <a class="button button--ghost" href="stats.html">Stats & high scores</a>
+    </nav>
 
-  <div class="info-section">
 
-    <h2>Created By Muhammad Saad Siddique - Connect with me</h2>
+    <section class="hero">
+      <div class="hero__content">
+        <p class="hero__eyebrow">Pakistan Advent of Code Competition</p>
+        <h1 class="hero__title">Join the leaderboard, register for the next event, and celebrate our top talent.</h1>
+        <p class="hero__subtitle">Follow the journey of local developers mastering daily puzzles and pushing Pakistan to
+          the global stage.</p>
+        <div class="hero__actions">
+          <a class="button button--primary" href="registration.html">Register for the event</a>
+          <a class="button button--ghost" href="#leaderboard">Join the leaderboard</a>
+        </div>
+      </div>
+      <div class="hero__card">
+        <h3>Featured competitor</h3>
+        <p>
+          Muhammad Saad Siddique is a software engineer and the founder of the Wisdom Seekers. A consistent top-tier
+          competitor, he is best known by his handle "Support Palestine," under which he achieved a Global Top 100 rank
+          in Advent of Code 2024.
+        </p>
+        <p>
+          Passionate about open source, Saad created advent-readme-stars, a tool used by developers worldwide to showcase
+          their coding achievements on GitHub. Over the last four years, he has focused on growing the competitive
+          programming landscape in Pakistan, helping hundreds of local developers refine their algorithmic skills.
+        </p>
+      </div>
+    </section>
 
-    <div class="social-icon">
-      <a href="https://github.com/MuhammadSaadSiddique" rel="nofollow"><img align="center"
-          src="https://cdn.jsdelivr.net/npm/simple-icons@3.0.1/icons/github.svg" alt="muhammaadsaad" height="30"
-          width="40" style="max-width: 100%;background: azure;"></a>
-      <a href="https://linkedin.com/in/muhammad-saad-siddique" rel="nofollow"><img align="center"
-          src="https://raw.githubusercontent.com/rahuldkjain/github-profile-readme-generator/master/src/images/icons/Social/linked-in-alt.svg"
-          alt="muhammaadsaad" height="30" width="40" style="max-width: 100%;"></a>
-      <a href="https://stackoverflow.com/users/7878118" rel="nofollow"><img align="center"
-          src="https://raw.githubusercontent.com/rahuldkjain/github-profile-readme-generator/master/src/images/icons/Social/stack-overflow.svg"
-          alt="7878118" height="30" width="40" style="max-width: 100%;"></a>
-      <a href="https://www.kaggle.com/muhammadsaadsiddique" rel="nofollow"><img align="center"
-          src="https://raw.githubusercontent.com/rahuldkjain/github-profile-readme-generator/master/src/images/icons/Social/kaggle.svg"
-          alt="muhammaadsaad" height="30" width="40" style="max-width: 100%;"></a>
-      <a href="https://www.facebook.com/saadsiddiquehere" rel="nofollow"><img align="center"
-          src="https://raw.githubusercontent.com/rahuldkjain/github-profile-readme-generator/master/src/images/icons/Social/facebook.svg"
-          alt="muhammaadsaad" height="30" width="40" style="max-width: 100%;"></a>
-      <a href="https://www.youtube.com/channel/UCncR7GkMuJxzSfqbJ9o6nEw" rel="nofollow"><img align="center"
-          src="https://raw.githubusercontent.com/rahuldkjain/github-profile-readme-generator/master/src/images/icons/Social/youtube.svg"
-          alt="maza point" height="30" width="40" style="max-width: 100%;"></a>
-      <a href="https://www.leetcode.com/MuhammadSaadSiddique" rel="nofollow"><img align="center"
-          src="https://raw.githubusercontent.com/rahuldkjain/github-profile-readme-generator/master/src/images/icons/Social/leet-code.svg"
-          alt="muhammaadsaad" height="30" width="40" style="max-width: 100%;"></a>
-      <a href="https://discord.gg/#2458" rel="nofollow"><img align="center"
-          src="https://raw.githubusercontent.com/rahuldkjain/github-profile-readme-generator/master/src/images/icons/Social/discord.svg"
-          alt="#2458" height="30" width="40" style="max-width: 100%;"></a>
+    <section class="stats" aria-labelledby="featured-stats">
+      <div class="section__header">
+        <h2 id="featured-stats">Featured stats from this page</h2>
+        <p>Snapshot of our current Advent of Code performance.</p>
+      </div>
+      <div class="stats__grid">
+        <div class="stat-card">
+          <p class="stat-card__label">Top 2024 Score</p>
+          <p class="stat-card__value">9,406</p>
+          <p class="stat-card__meta">Achieved by Muhammad Qurban</p>
+        </div>
+        <div class="stat-card">
+          <p class="stat-card__label">Lightning Day 1 solve</p>
+          <p class="stat-card__value">02:27</p>
+          <p class="stat-card__meta">Sana Raza starred twice in under 5 minutes</p>
+        </div>
+        <div class="stat-card">
+          <p class="stat-card__label">Seasons tracked</p>
+          <p class="stat-card__value">2021-2024</p>
+          <p class="stat-card__meta">Four years of Pakistan leaderboard history</p>
+        </div>
+      </div>
+    </section>
+
+    <section class="actions" id="register" aria-labelledby="join-actions">
+      <div class="section__header">
+        <h2 id="join-actions">Register for the event</h2>
+        <p>Secure your spot for the next Advent of Code season and get notified when puzzles drop.</p>
+      </div>
+      <div class="actions__content">
+        <div>
+          <ol class="actions__steps">
+            <li>Sign in at <a href="https://adventofcode.com" target="_blank" rel="noreferrer">adventofcode.com</a>
+              with GitHub, Google, or Reddit.</li>
+            <li>Reserve your competition spot by completing the <a href="registration.html">participant
+                registration form</a>.</li>
+            <li>Visit the calendar in December to unlock the daily puzzles.</li>
+            <li>Share your progress with the Pakistan community using our leaderboard code.</li>
+          </ol>
+          <div class="hero__actions" style="padding-left:0;">
+            <a class="button button--primary" href="registration.html">Go to registration page</a>
+            <a class="button button--ghost" href="https://adventofcode.com/">Go to Advent of Code</a>
+          </div>
+        </div>
+        <div class="actions__card">
+          <h3>Join the leaderboard</h3>
+          <p>Use the private leaderboard code below to compete with Pakistan's best.</p>
+          <p class="actions__code" id="leaderboard">1739374-77ea5f22</p>
+          <p class="actions__caption">Enter the code under <strong>Private Leaderboards</strong> after signing in.</p>
+        </div>
+      </div>
+    </section>
+
+    <div class="info-section">
+
+      <h2>Created By Muhammad Saad Siddique - Connect with me</h2>
+
+      <div class="social-icon">
+        <a href="https://github.com/MuhammadSaadSiddique" rel="nofollow"><img align="center"
+            src="https://cdn.jsdelivr.net/npm/simple-icons@3.0.1/icons/github.svg" alt="muhammaadsaad" height="30"
+            width="40" style="max-width: 100%;background: azure;"></a>
+        <a href="https://linkedin.com/in/muhammad-saad-siddique" rel="nofollow"><img align="center"
+            src="https://raw.githubusercontent.com/rahuldkjain/github-profile-readme-generator/master/src/images/icons/Social/linked-in-alt.svg"
+            alt="muhammaadsaad" height="30" width="40" style="max-width: 100%;"></a>
+        <a href="https://stackoverflow.com/users/7878118" rel="nofollow"><img align="center"
+            src="https://raw.githubusercontent.com/rahuldkjain/github-profile-readme-generator/master/src/images/icons/Social/stack-overflow.svg"
+            alt="7878118" height="30" width="40" style="max-width: 100%;"></a>
+        <a href="https://www.kaggle.com/muhammadsaadsiddique" rel="nofollow"><img align="center"
+            src="https://raw.githubusercontent.com/rahuldkjain/github-profile-readme-generator/master/src/images/icons/Social/kaggle.svg"
+            alt="muhammaadsaad" height="30" width="40" style="max-width: 100%;"></a>
+        <a href="https://www.facebook.com/saadsiddiquehere" rel="nofollow"><img align="center"
+            src="https://raw.githubusercontent.com/rahuldkjain/github-profile-readme-generator/master/src/images/icons/Social/facebook.svg"
+            alt="muhammaadsaad" height="30" width="40" style="max-width: 100%;"></a>
+        <a href="https://www.youtube.com/channel/UCncR7GkMuJxzSfqbJ9o6nEw" rel="nofollow"><img align="center"
+            src="https://raw.githubusercontent.com/rahuldkjain/github-profile-readme-generator/master/src/images/icons/Social/youtube.svg"
+            alt="maza point" height="30" width="40" style="max-width: 100%;"></a>
+        <a href="https://www.leetcode.com/MuhammadSaadSiddique" rel="nofollow"><img align="center"
+            src="https://raw.githubusercontent.com/rahuldkjain/github-profile-readme-generator/master/src/images/icons/Social/leet-code.svg"
+            alt="muhammaadsaad" height="30" width="40" style="max-width: 100%;"></a>
+        <a href="https://discord.gg/#2458" rel="nofollow"><img align="center"
+            src="https://raw.githubusercontent.com/rahuldkjain/github-profile-readme-generator/master/src/images/icons/Social/discord.svg"
+            alt="#2458" height="30" width="40" style="max-width: 100%;"></a>
+      </div>
+
+      <div>
+        <a href="#" title="free website hit counters"><img
+            src="https://counter7.optistats.ovh/private/freecounterstat.php?c=gzynnsq22s37rlx2bqq8r5hptkrldssl" border="0"
+            title="free website hit counters" alt="free website hit counters"></a>
+      </div>
+
+      <p class="jointext">
+        Others Pakistan Citizens can join it using the code <b>1739374-77ea5f22 </b>
+      </p>
+
     </div>
-
-    <div>
-      <a href="#" title="free website hit counters"><img
-          src="https://counter7.optistats.ovh/private/freecounterstat.php?c=gzynnsq22s37rlx2bqq8r5hptkrldssl" border="0"
-          title="free website hit counters" alt="free website hit counters"></a>
-    </div>
-
-    <p class="jointext">
-      Others Pakistan Citizens can join it using the code <b>1739374-77ea5f22 </b>
-    </p>
-
-  </div>
 
   <h2>Pakistan Leaderboard</h2>
   <div align="center">

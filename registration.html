@@ -1,0 +1,358 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Competition Registration | Advent of Code Pakistan</title>
+  <link rel="shortcut icon" type="image/x-icon" href="img/favicon.ico" />
+  <link rel="preload" href="5bb504ebc09c3433.css" as="style" />
+  <link rel="stylesheet" href="5bb504ebc09c3433.css" data-n-g="" />
+  <link rel="preload" href="/_next/static/css/76af02217d93ab40.css" as="style" />
+  <link rel="stylesheet" href="76af02217d93ab40.css" data-n-p="" />
+  <style>
+    body {
+      margin: 0;
+      padding: 20px;
+      background: #f4f7fb;
+      color: #0d1117;
+      font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
+    }
+
+    a {
+      color: #0077cc;
+    }
+
+    .page-shell {
+      max-width: 1100px;
+      margin: 0 auto 32px;
+      display: flex;
+      flex-direction: column;
+      gap: 24px;
+    }
+
+    .hero {
+      background: linear-gradient(135deg, rgba(0, 162, 255, 0.16), rgba(13, 17, 23, 0.92));
+      color: #fff;
+      border-radius: 16px;
+      padding: 28px;
+      display: grid;
+      grid-template-columns: 2fr 1fr;
+      gap: 18px;
+      box-shadow: 0 20px 40px rgba(0, 0, 0, 0.12);
+    }
+
+    .hero h1 {
+      margin: 0 0 8px;
+      font-size: 32px;
+    }
+
+    .hero p {
+      margin: 0 0 12px;
+      color: #d8f1ff;
+      line-height: 1.6;
+    }
+
+    .badge {
+      display: inline-block;
+      padding: 6px 12px;
+      border-radius: 999px;
+      background: rgba(0, 162, 255, 0.16);
+      color: #c9f0ff;
+      border: 1px solid rgba(0, 162, 255, 0.35);
+      font-weight: 700;
+      letter-spacing: 0.05em;
+      text-transform: uppercase;
+      font-size: 12px;
+    }
+
+    .cta-row {
+      display: flex;
+      gap: 10px;
+      flex-wrap: wrap;
+      margin-top: 12px;
+    }
+
+    .button {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      padding: 10px 16px;
+      border-radius: 10px;
+      font-weight: 700;
+      text-decoration: none;
+      transition: transform 0.1s ease, box-shadow 0.1s ease;
+      border: 1px solid transparent;
+      cursor: pointer;
+    }
+
+    .nav-bar {
+      display: flex;
+      gap: 10px;
+      flex-wrap: wrap;
+      margin: 12px 0 0;
+    }
+
+    .button--primary {
+      background: #00a2ff;
+      color: #0d1117;
+      box-shadow: 0 10px 25px rgba(0, 162, 255, 0.35);
+    }
+
+    .button--ghost {
+      color: #00a2ff;
+      border-color: rgba(0, 162, 255, 0.55);
+      background: rgba(0, 162, 255, 0.1);
+    }
+
+    .button:hover {
+      transform: translateY(-2px);
+    }
+
+    .hero-card {
+      background: rgba(255, 255, 255, 0.08);
+      border: 1px solid rgba(255, 255, 255, 0.18);
+      border-radius: 12px;
+      padding: 16px;
+      color: #f7f7f7;
+      line-height: 1.6;
+    }
+
+    .section {
+      background: #fff;
+      border-radius: 14px;
+      padding: 20px;
+      box-shadow: 0 10px 30px rgba(0, 0, 0, 0.08);
+      border: 1px solid #e1e8f0;
+    }
+
+    .section h2 {
+      margin-top: 0;
+      margin-bottom: 8px;
+      font-size: 26px;
+    }
+
+    .section p {
+      margin-top: 0;
+      line-height: 1.6;
+    }
+
+    .grid-two {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+      gap: 14px;
+    }
+
+    .card {
+      border: 1px solid #dfe5eb;
+      border-radius: 12px;
+      padding: 14px;
+      background: #f7fbff;
+      box-shadow: 0 6px 18px rgba(0, 0, 0, 0.05);
+      height: 100%;
+    }
+
+    .card h3 {
+      margin-top: 0;
+      margin-bottom: 6px;
+    }
+
+    form {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+      gap: 14px;
+      margin-top: 14px;
+    }
+
+    label {
+      display: flex;
+      flex-direction: column;
+      gap: 6px;
+      font-weight: 700;
+      color: #0d1117;
+      font-size: 14px;
+    }
+
+    input,
+    select,
+    textarea {
+      padding: 10px 12px;
+      border-radius: 10px;
+      border: 1px solid #c9d6e2;
+      background: #fff;
+      font-size: 14px;
+      font-family: inherit;
+    }
+
+    textarea {
+      min-height: 90px;
+      resize: vertical;
+    }
+
+    .form-footer {
+      grid-column: 1 / -1;
+      display: flex;
+      flex-wrap: wrap;
+      align-items: center;
+      gap: 10px;
+      justify-content: flex-start;
+      margin-top: 8px;
+    }
+
+    .notice {
+      grid-column: 1 / -1;
+      background: #f0f6ff;
+      border: 1px solid #cfe0f5;
+      color: #0d3b66;
+      padding: 12px;
+      border-radius: 10px;
+      font-size: 14px;
+    }
+
+    .code-pill {
+      display: inline-block;
+      font-family: monospace;
+      font-size: 18px;
+      letter-spacing: 0.05em;
+      padding: 10px 12px;
+      border-radius: 10px;
+      background: #0d1117;
+      color: #00a2ff;
+    }
+
+    @media (max-width: 720px) {
+      .hero {
+        grid-template-columns: 1fr;
+      }
+    }
+  </style>
+</head>
+<body>
+  <div class="page-shell">
+    <nav class="nav-bar" aria-label="Page navigation">
+      <a class="button button--ghost" href="index.html">Leaderboard home</a>
+      <a class="button button--primary" href="registration.html">Registration page</a>
+      <a class="button button--ghost" href="stats.html">Stats & high scores</a>
+    </nav>
+
+    <section class="hero">
+      <div>
+        <span class="badge">Competition Registration</span>
+        <h1>Reserve your spot for Advent of Code Pakistan</h1>
+        <p>Sign up to compete with the national community, receive puzzle reminders, and get invited to live streams and
+          post-contest reviews. Complete the form below so we can pair you with the right division and keep you in the
+          loop.</p>
+        <div class="cta-row">
+          <a class="button button--primary" href="#registration-form">Start registration</a>
+          <a class="button button--ghost" href="index.html#leaderboard">View leaderboard code</a>
+        </div>
+      </div>
+      <div class="hero-card">
+        <h3>Event quick facts</h3>
+        <ul>
+          <li>Eligible years: 2021-2024 (join any season that fits you)</li>
+          <li>Daily puzzles unlock at midnight EST during December</li>
+          <li>Leaderboard resets each season—early registration recommended</li>
+          <li>Private leaderboard code: <span class="code-pill">1739374-77ea5f22</span></li>
+        </ul>
+      </div>
+    </section>
+
+    <section class="section">
+      <h2>How registration works</h2>
+      <p>Tell us who you are and how we can reach you. We'll share reminders, streaming links, and highlight standout
+        competitors on the homepage.</p>
+      <div class="grid-two">
+        <div class="card">
+          <h3>Before puzzles begin</h3>
+          <ol>
+            <li>Create an Advent of Code account using GitHub, Google, or Reddit.</li>
+            <li>Join the Pakistan private leaderboard with the code above.</li>
+            <li>Submit this registration so we can verify you and feature your progress.</li>
+          </ol>
+        </div>
+        <div class="card">
+          <h3>During December</h3>
+          <ol>
+            <li>Check in daily for puzzle unlocks and share your solve times.</li>
+            <li>Attend weekly office hours or stream replays linked in your inbox.</li>
+            <li>Keep your profile details updated so we can celebrate milestones.</li>
+          </ol>
+        </div>
+      </div>
+    </section>
+
+    <section class="section" id="registration-form">
+      <h2>Participant registration form</h2>
+      <p>Fields marked with * are required so we can authenticate you on the leaderboard.</p>
+      <form>
+        <label>
+          Full name *
+          <input type="text" name="full-name" placeholder="Your name" required />
+        </label>
+        <label>
+          Email address *
+          <input type="email" name="email" placeholder="you@example.com" required />
+        </label>
+        <label>
+          GitHub profile
+          <input type="url" name="github" placeholder="https://github.com/username" />
+        </label>
+        <label>
+          LinkedIn profile
+          <input type="url" name="linkedin" placeholder="https://linkedin.com/in/username" />
+        </label>
+        <label>
+          Advent of Code username *
+          <input type="text" name="aoc-username" placeholder="Matches your Advent of Code profile" required />
+        </label>
+        <label>
+          City / Time zone
+          <input type="text" name="timezone" placeholder="Karachi (PKT)" />
+        </label>
+        <label>
+          Preferred division
+          <select name="division">
+            <option value="beginner">Beginner (learning the ropes)</option>
+            <option value="intermediate">Intermediate (comfortable with puzzles)</option>
+            <option value="advanced">Advanced (aiming for global ranks)</option>
+          </select>
+        </label>
+        <label>
+          Communication preference
+          <select name="comms">
+            <option value="email">Email updates</option>
+            <option value="discord">Discord (invite sent after registration)</option>
+            <option value="both">Both email and Discord</option>
+          </select>
+        </label>
+        <label>
+          I will use AI for quick solve
+          <select name="ai-usage">
+            <option value="true">True</option>
+            <option value="false">False</option>
+          </select>
+        </label>
+        <label>
+          Additional details
+          <textarea name="notes" placeholder="Tell us about your goals, team, or streaming plans"></textarea>
+        </label>
+        <div class="notice">
+          By submitting, you agree to receive competition updates and acknowledge that your handle may appear on the
+          public leaderboard showcase. I will follow what I have provided.
+        </div>
+        <div class="form-footer">
+          <button class="button button--primary" type="submit">Submit registration</button>
+          <a class="button button--ghost" href="index.html">Back to homepage</a>
+        </div>
+      </form>
+    </section>
+
+    <section class="section">
+      <h2>Need help?</h2>
+      <p>Questions about eligibility, streaming, or leaderboard verification? Reach out at
+        <a href="mailto:wisdomseekers.pk@gmail.com">wisdomseekers.pk@gmail.com</a> and include your Advent of Code
+        username so we can respond quickly.</p>
+    </section>
+  </div>
+</body>
+</html>
