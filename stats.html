@@ -1,0 +1,526 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Advent of Code Pakistan - Stats & High Scores</title>
+  <link rel="shortcut icon" type="image/x-icon" href="img/favicon.ico" />
+  <link rel="preload" href="5bb504ebc09c3433.css" as="style" />
+  <link rel="stylesheet" href="5bb504ebc09c3433.css" data-n-g="" />
+  <link rel="preload" href="/_next/static/css/76af02217d93ab40.css" as="style" />
+  <link rel="stylesheet" href="76af02217d93ab40.css" data-n-p="" />
+  <style>
+    body {
+      margin: 0;
+      padding: 16px;
+      background: #f7fbff;
+      color: #0d1117;
+      font-family: 'Inter', system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+    }
+
+    .page__wrap {
+      max-width: 1200px;
+      margin: 0 auto;
+      display: flex;
+      flex-direction: column;
+      gap: 24px;
+    }
+
+    .hero {
+      background: linear-gradient(135deg, rgba(0, 162, 255, 0.15), rgba(13, 17, 23, 0.95));
+      color: #f8fbff;
+      border-radius: 16px;
+      padding: 28px;
+      display: grid;
+      grid-template-columns: 2fr 1fr;
+      gap: 20px;
+      align-items: center;
+      box-shadow: 0 12px 40px rgba(0, 0, 0, 0.12);
+    }
+
+    .hero__title {
+      font-size: 32px;
+      margin: 0 0 8px;
+      line-height: 1.2;
+    }
+
+    .hero__subtitle {
+      margin: 0 0 16px;
+      max-width: 720px;
+      color: #d1ebff;
+      line-height: 1.6;
+    }
+
+    .hero__eyebrow {
+      margin: 0;
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
+      font-weight: 700;
+      color: #a6e6ff;
+    }
+
+    .hero__actions {
+      display: flex;
+      gap: 12px;
+      flex-wrap: wrap;
+    }
+
+    .button {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      padding: 10px 16px;
+      border-radius: 10px;
+      font-weight: 700;
+      text-decoration: none;
+      transition: transform 0.1s ease, box-shadow 0.1s ease;
+      border: 1px solid transparent;
+      cursor: pointer;
+    }
+
+    .nav-bar {
+      display: flex;
+      gap: 10px;
+      flex-wrap: wrap;
+      margin: 12px 0 0;
+    }
+
+    .button--primary {
+      background: #00a2ff;
+      color: #0d1117;
+      box-shadow: 0 10px 25px rgba(0, 162, 255, 0.35);
+    }
+
+    .button--ghost {
+      color: #00a2ff;
+      border-color: rgba(0, 162, 255, 0.55);
+      background: rgba(0, 162, 255, 0.1);
+    }
+
+    .button:hover {
+      transform: translateY(-2px);
+    }
+
+    .hero__card {
+      background: rgba(255, 255, 255, 0.12);
+      border: 1px solid rgba(255, 255, 255, 0.25);
+      border-radius: 12px;
+      padding: 16px;
+      box-shadow: 0 10px 35px rgba(0, 0, 0, 0.15);
+    }
+
+    .section__header {
+      display: flex;
+      align-items: baseline;
+      gap: 10px;
+      flex-wrap: wrap;
+    }
+
+    .section__header h2 {
+      margin: 0;
+    }
+
+    .section__header p {
+      margin: 0;
+      color: #355b75;
+    }
+
+    .stats__grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+      gap: 12px;
+    }
+
+    .stat-card {
+      border: 1px solid #dfe5eb;
+      border-radius: 12px;
+      padding: 14px;
+      background: #ffffff;
+      box-shadow: 0 6px 18px rgba(0, 0, 0, 0.05);
+    }
+
+    .stat-card__label {
+      margin: 0;
+      color: #355b75;
+      font-weight: 700;
+      text-transform: uppercase;
+      font-size: 12px;
+      letter-spacing: 0.05em;
+    }
+
+    .stat-card__value {
+      margin: 6px 0;
+      font-size: 28px;
+      color: #0d1117;
+      font-weight: 800;
+    }
+
+    .stat-card__meta {
+      margin: 0;
+      color: #355b75;
+      line-height: 1.4;
+    }
+
+    .table__wrap {
+      overflow-x: auto;
+      background: #ffffff;
+      border-radius: 14px;
+      border: 1px solid #dfe5eb;
+      box-shadow: 0 8px 24px rgba(0, 0, 0, 0.06);
+    }
+
+    table {
+      width: 100%;
+      border-collapse: collapse;
+      min-width: 640px;
+    }
+
+    th, td {
+      padding: 12px 10px;
+      text-align: left;
+      border-bottom: 1px solid #e6edf3;
+      font-size: 15px;
+    }
+
+    th {
+      background: #f0f6fb;
+      font-weight: 800;
+      color: #0b2a42;
+    }
+
+    tbody tr:hover {
+      background: #f7fbff;
+    }
+
+    .tag {
+      display: inline-block;
+      padding: 4px 8px;
+      border-radius: 8px;
+      font-weight: 700;
+      font-size: 12px;
+      background: rgba(0, 162, 255, 0.12);
+      color: #0b4a75;
+    }
+
+    .pill {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      padding: 10px 12px;
+      border-radius: 12px;
+      background: #e6f4ff;
+      color: #0b2a42;
+      font-weight: 700;
+    }
+
+    .pill__value {
+      font-size: 20px;
+      color: #006bb8;
+    }
+
+    @media (max-width: 900px) {
+      .hero {
+        grid-template-columns: 1fr;
+      }
+    }
+
+    @media (max-width: 600px) {
+      body {
+        padding: 12px;
+      }
+
+      .hero__title {
+        font-size: 26px;
+      }
+    }
+  </style>
+</head>
+<body>
+  <main class="page__wrap">
+    <nav class="nav-bar" aria-label="Page navigation">
+      <a class="button button--ghost" href="index.html">Leaderboard home</a>
+      <a class="button button--ghost" href="registration.html">Registration page</a>
+      <a class="button button--primary" href="stats.html">Stats & high scores</a>
+    </nav>
+
+    <section class="hero">
+      <div>
+        <p class="hero__eyebrow">Pakistan Advent of Code</p>
+        <h1 class="hero__title">Stats hub and overall high scores</h1>
+        <p class="hero__subtitle">Review our standout performances from 2021 through 2024. Track the best local scores, see
+          who dominated each season, and jump to registration or the main leaderboard at any time.</p>
+        <div class="hero__actions">
+          <a class="button button--primary" href="index.html">Return to leaderboard home</a>
+          <a class="button button--ghost" href="registration.html">Register for the event</a>
+        </div>
+      </div>
+      <div class="hero__card">
+        <p class="pill">
+          <span class="pill__value">4</span>
+          seasons tracked with full day-by-day data
+        </p>
+        <p style="margin: 10px 0 0; line-height: 1.5;">Top performers across the years show consistent excellence,
+          including Ali Zahid Raja, Support Palestine, and Muhammad Qurban with multiple podium finishes.</p>
+      </div>
+    </section>
+
+    <section aria-labelledby="featured-stats">
+      <div class="section__header">
+        <h2 id="featured-stats">Featured stats</h2>
+        <p>Quick highlights from the Pakistan Advent of Code community.</p>
+      </div>
+      <div class="stats__grid">
+        <div class="stat-card">
+          <p class="stat-card__label">Highest single-season score</p>
+          <p class="stat-card__value">9,883</p>
+          <p class="stat-card__meta">Ali Zahid Raja (2021)</p>
+        </div>
+        <div class="stat-card">
+          <p class="stat-card__label">All-time score count</p>
+          <p class="stat-card__value">38,839</p>
+          <p class="stat-card__meta">Cumulative points from champions across 2021-2024</p>
+        </div>
+        <div class="stat-card">
+          <p class="stat-card__label">Most seasons on the podium</p>
+          <p class="stat-card__value">Support Palestine</p>
+          <p class="stat-card__meta">Top 3 in 2021, 2022, and 2023</p>
+        </div>
+        <div class="stat-card">
+          <p class="stat-card__label">Fastest season opener</p>
+          <p class="stat-card__value">Day 1 under 3 minutes</p>
+          <p class="stat-card__meta">Achieved by multiple contenders in 2024</p>
+        </div>
+        <div class="stat-card">
+          <p class="stat-card__label">Top 2024 score</p>
+          <p class="stat-card__value">9,406</p>
+          <p class="stat-card__meta">Muhammad Qurban led the latest season</p>
+        </div>
+      </div>
+    </section>
+
+    <section aria-labelledby="overall-scores">
+      <div class="section__header">
+        <h2 id="overall-scores">Overall high scores by season</h2>
+        <p>Local scores and star counts for the top five participants each year.</p>
+      </div>
+      <div class="table__wrap">
+        <table>
+          <thead>
+            <tr>
+              <th>Season</th>
+              <th>Rank</th>
+              <th>Participant</th>
+              <th>Local score</th>
+              <th>Stars</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td rowspan="5"><span class="tag">2021</span></td>
+              <td>#1</td>
+              <td>Ali Zahid Raja</td>
+              <td>9,883</td>
+              <td>50</td>
+            </tr>
+            <tr>
+              <td>#2</td>
+              <td>Yousra Mashkoor</td>
+              <td>9,856</td>
+              <td>50</td>
+            </tr>
+            <tr>
+              <td>#3</td>
+              <td>Support Palestine</td>
+              <td>9,798</td>
+              <td>50</td>
+            </tr>
+            <tr>
+              <td>#4</td>
+              <td>Mahammad</td>
+              <td>9,726</td>
+              <td>50</td>
+            </tr>
+            <tr>
+              <td>#5</td>
+              <td>Tanish_Kumar</td>
+              <td>1,938</td>
+              <td>10</td>
+            </tr>
+            <tr>
+              <td rowspan="5"><span class="tag">2022</span></td>
+              <td>#1</td>
+              <td>Ali Zahid Raja</td>
+              <td>9,849</td>
+              <td>50</td>
+            </tr>
+            <tr>
+              <td>#2</td>
+              <td>Support Palestine</td>
+              <td>9,800</td>
+              <td>50</td>
+            </tr>
+            <tr>
+              <td>#3</td>
+              <td>Tanish_Kumar</td>
+              <td>9,535</td>
+              <td>50</td>
+            </tr>
+            <tr>
+              <td>#4</td>
+              <td>Muhammad Talha</td>
+              <td>9,519</td>
+              <td>50</td>
+            </tr>
+            <tr>
+              <td>#5</td>
+              <td>areesa ashfaq</td>
+              <td>9,511</td>
+              <td>50</td>
+            </tr>
+            <tr>
+              <td rowspan="5"><span class="tag">2023</span></td>
+              <td>#1</td>
+              <td>Zubair Zafar</td>
+              <td>9,701</td>
+              <td>50</td>
+            </tr>
+            <tr>
+              <td>#2</td>
+              <td>Support Palestine</td>
+              <td>9,583</td>
+              <td>50</td>
+            </tr>
+            <tr>
+              <td>#3</td>
+              <td>areesa ashfaq</td>
+              <td>9,501</td>
+              <td>50</td>
+            </tr>
+            <tr>
+              <td>#4</td>
+              <td>Asia Hassan</td>
+              <td>9,471</td>
+              <td>50</td>
+            </tr>
+            <tr>
+              <td>#5</td>
+              <td>Tayyab Zain</td>
+              <td>9,458</td>
+              <td>50</td>
+            </tr>
+            <tr>
+              <td rowspan="5"><span class="tag">2024</span></td>
+              <td>#1</td>
+              <td>Muhammad Qurban</td>
+              <td>9,406</td>
+              <td>50</td>
+            </tr>
+            <tr>
+              <td>#2</td>
+              <td>Sana Raza</td>
+              <td>9,344</td>
+              <td>50</td>
+            </tr>
+            <tr>
+              <td>#3</td>
+              <td>Fatima Malik</td>
+              <td>9,342</td>
+              <td>50</td>
+            </tr>
+            <tr>
+              <td>#4</td>
+              <td>muhammad bilal</td>
+              <td>9,261</td>
+              <td>50</td>
+            </tr>
+            <tr>
+              <td>#5</td>
+              <td>Ahmad Fakhar</td>
+              <td>9,249</td>
+              <td>50</td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+    </section>
+
+    <section aria-labelledby="yearly-highscores">
+      <div class="section__header">
+        <h2 id="yearly-highscores">Year-by-year high score leaders</h2>
+        <p>Top performer and score snapshot for every tracked season.</p>
+      </div>
+      <div class="stats__grid">
+        <div class="stat-card">
+          <p class="stat-card__label">2021 High Score</p>
+          <p class="stat-card__value">9,883</p>
+          <p class="stat-card__meta">Ali Zahid Raja set the pace with a perfect 50-star run.</p>
+        </div>
+        <div class="stat-card">
+          <p class="stat-card__label">2022 High Score</p>
+          <p class="stat-card__value">9,849</p>
+          <p class="stat-card__meta">Ali Zahid Raja repeated with another 50 stars.</p>
+        </div>
+        <div class="stat-card">
+          <p class="stat-card__label">2023 High Score</p>
+          <p class="stat-card__value">9,701</p>
+          <p class="stat-card__meta">Zubair Zafar claimed the crown with consistent finishes.</p>
+        </div>
+        <div class="stat-card">
+          <p class="stat-card__label">2024 High Score</p>
+          <p class="stat-card__value">9,406</p>
+          <p class="stat-card__meta">Muhammad Qurban led the latest season's leaderboard.</p>
+        </div>
+      </div>
+    </section>
+
+    <section aria-labelledby="support-palestine" style="margin-top: 8px;">
+      <div class="section__header">
+        <h2 id="support-palestine">Support Palestine spotlight</h2>
+        <p>Celebrating a consistently elite competitor across multiple seasons.</p>
+      </div>
+      <div class="hero__card" style="background: linear-gradient(135deg, rgba(0, 162, 255, 0.12), #0d1117); color: #f8fbff;">
+        <p class="hero__eyebrow" style="color: #a6e6ff;">Achievements</p>
+        <h3 style="margin: 8px 0 12px; font-size: 24px;">Support Palestine (Muhammad Saad Siddique)</h3>
+        <p style="margin: 0 0 12px; line-height: 1.6;">Global Top 100 in Advent of Code 2024 and podium finishes in Pakistan's
+          community leaderboard for 2021, 2022, and 2023.</p>
+        <div class="stats__grid" style="margin-top: 10px;">
+          <div class="stat-card" style="background: rgba(255,255,255,0.1); border-color: rgba(255,255,255,0.3); color: #e8f6ff;">
+            <p class="stat-card__label" style="color: #a6e6ff;">Podium streak</p>
+            <p class="stat-card__value" style="color: #ffffff;">3 years</p>
+            <p class="stat-card__meta" style="color: #d1ebff;">Top 3 finishes from 2021-2023</p>
+          </div>
+          <div class="stat-card" style="background: rgba(255,255,255,0.1); border-color: rgba(255,255,255,0.3); color: #e8f6ff;">
+            <p class="stat-card__label" style="color: #a6e6ff;">Global highlight</p>
+            <p class="stat-card__value" style="color: #ffffff;">Top 100</p>
+            <p class="stat-card__meta" style="color: #d1ebff;">Advent of Code 2024 worldwide ranking</p>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section aria-labelledby="how-to-use">
+      <div class="section__header">
+        <h2 id="how-to-use">How to use this stats page</h2>
+        <p>Share a quick snapshot or dive into the full leaderboard without leaving the site.</p>
+      </div>
+      <div class="stats__grid">
+        <div class="stat-card">
+          <p class="stat-card__label">Compare seasons</p>
+          <p class="stat-card__meta">Use the table above to reference improvements or track year-over-year consistency
+            for returning competitors.</p>
+        </div>
+        <div class="stat-card">
+          <p class="stat-card__label">Jump to actions</p>
+          <p class="stat-card__meta">Head back to <a href="index.html">index.html</a> for the live leaderboard or to
+            copy the private code, or open <a href="registration.html">registration.html</a> to enroll.</p>
+        </div>
+        <div class="stat-card">
+          <p class="stat-card__label">Share milestones</p>
+          <p class="stat-card__meta">Highlight Pakistan's top scores in community posts or onboarding guides to attract
+            new participants.</p>
+        </div>
+      </div>
+    </section>
+  </main>
+</body>
+</html>
