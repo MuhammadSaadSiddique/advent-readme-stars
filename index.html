@@ -221,6 +221,73 @@
       color: #355b75;
     }
 
+    .combined-times {
+      background: #fff;
+      border: 1px solid #e1e8f0;
+      border-radius: 14px;
+      padding: 18px;
+      box-shadow: 0 12px 30px rgba(0, 0, 0, 0.06);
+      display: flex;
+      flex-direction: column;
+      gap: 12px;
+    }
+
+    .combined-controls {
+      display: flex;
+      gap: 12px;
+      align-items: center;
+      flex-wrap: wrap;
+    }
+
+    .combined-controls label {
+      font-weight: 600;
+      color: #0d1117;
+    }
+
+    .combined-controls select {
+      padding: 8px 10px;
+      border-radius: 10px;
+      border: 1px solid #dfe5eb;
+      background: #f7fbff;
+      font-weight: 600;
+    }
+
+    .combined-table {
+      width: 100%;
+      border-collapse: collapse;
+    }
+
+    .combined-table th,
+    .combined-table td {
+      text-align: left;
+      padding: 10px;
+      border-bottom: 1px solid #eef2f7;
+    }
+
+    .combined-table th {
+      background: #f4f7fb;
+      color: #355b75;
+      cursor: pointer;
+      user-select: none;
+      position: relative;
+    }
+
+    .combined-table th .sort-indicator {
+      margin-left: 8px;
+      font-size: 12px;
+      color: #7a90a4;
+    }
+
+    .combined-table tbody tr:hover {
+      background: #f7fbff;
+    }
+
+    .combined-note {
+      margin: 0;
+      color: #355b75;
+      font-size: 14px;
+    }
+
     .actions__content {
       display: grid;
       grid-template-columns: 2fr 1fr;
@@ -578,6 +645,38 @@
           <p class="stat-card__meta">Four years of Pakistan leaderboard history</p>
         </div>
       </div>
+    </section>
+
+    <section class="combined-times" id="combined-times" aria-labelledby="combined-times-title">
+      <div class="section__header">
+        <h2 id="combined-times-title">Combined star time leaderboard</h2>
+        <p>Fastest aggregate completion time across all earned stars, calculated directly from the leaderboard JSON.</p>
+      </div>
+      <div class="combined-controls">
+        <label for="combined-year">Choose year</label>
+        <select id="combined-year">
+          <option value="2024" selected>2024</option>
+          <option value="2023">2023</option>
+          <option value="2022">2022</option>
+          <option value="2021">2021</option>
+        </select>
+        <p class="combined-note">Click any header to change the sort order.</p>
+      </div>
+      <table class="combined-table" id="combined-table">
+        <thead>
+          <tr>
+            <th scope="col" data-sort="name">Name <span class="sort-indicator">⇅</span></th>
+            <th scope="col" data-sort="stars">Stars <span class="sort-indicator">⇅</span></th>
+            <th scope="col" data-sort="time">Combined time <span class="sort-indicator">⇅</span></th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td colspan="3">Loading combined times…</td>
+          </tr>
+        </tbody>
+      </table>
+      <p class="combined-note">Combined time sums the gap between each puzzle's release (05:00 UTC) and the timestamp for every collected star.</p>
     </section>
 
     <section class="actions" id="register" aria-labelledby="join-actions">
@@ -9496,6 +9595,159 @@
 
   </div>
   </div>
+  <script>
+    (() => {
+      const yearSelect = document.getElementById("combined-year");
+      const tableBody = document.querySelector("#combined-table tbody");
+      const tableHeaders = document.querySelectorAll("#combined-table th[data-sort]");
+      const cachedYears = {};
+      let currentData = [];
+      let currentSort = { key: "time", direction: "asc" };
+
+      const formatDuration = (totalSeconds) => {
+        const seconds = Math.floor(totalSeconds % 60).toString().padStart(2, "0");
+        const minutes = Math.floor((totalSeconds / 60) % 60).toString().padStart(2, "0");
+        const hours = Math.floor((totalSeconds / 3600) % 24).toString().padStart(2, "0");
+        const days = Math.floor(totalSeconds / 86400);
+        return days > 0 ? `${days}d ${hours}:${minutes}:${seconds}` : `${hours}:${minutes}:${seconds}`;
+      };
+
+      const computeCombinedTimes = (leaderboard, year) => {
+        const results = [];
+        Object.values(leaderboard?.members || {}).forEach((member) => {
+          if (!member.name) return;
+          const completion = member.completion_day_level || {};
+          let totalSeconds = 0;
+          let stars = 0;
+
+          for (let day = 1; day <= 25; day += 1) {
+            const dayData = completion[String(day)];
+            if (!dayData) continue;
+
+            ["1", "2"].forEach((part) => {
+              const partInfo = dayData[part];
+              if (!partInfo) return;
+
+              const releaseTime = Date.UTC(Number(year), 11, day, 5, 0, 0) / 1000;
+              const elapsed = Math.max(0, partInfo.get_star_ts - releaseTime);
+
+              totalSeconds += elapsed;
+              stars += 1;
+            });
+          }
+
+          results.push({
+            name: member.name,
+            stars,
+            totalSeconds,
+          });
+        });
+
+        return results;
+      };
+
+      const sortRows = (rows) => {
+        const sorted = [...rows];
+        sorted.sort((a, b) => {
+          if (currentSort.key === "time") {
+            const diff = a.totalSeconds - b.totalSeconds;
+            if (diff !== 0) return currentSort.direction === "asc" ? diff : -diff;
+          }
+
+          if (currentSort.key === "stars") {
+            const diff = b.stars - a.stars;
+            if (diff !== 0) return currentSort.direction === "asc" ? -diff : diff;
+          }
+
+          if (currentSort.key === "name") {
+            const diff = a.name.localeCompare(b.name);
+            if (diff !== 0) return currentSort.direction === "asc" ? diff : -diff;
+          }
+
+          const secondary = a.totalSeconds - b.totalSeconds;
+          if (secondary !== 0) return secondary;
+          const tertiary = b.stars - a.stars;
+          if (tertiary !== 0) return tertiary;
+          return a.name.localeCompare(b.name);
+        });
+        return sorted;
+      };
+
+      const updateSortIndicators = () => {
+        tableHeaders.forEach((header) => {
+          const indicator = header.querySelector(".sort-indicator");
+          if (!indicator) return;
+          if (header.dataset.sort === currentSort.key) {
+            indicator.textContent = currentSort.direction === "asc" ? "↑" : "↓";
+          } else {
+            indicator.textContent = "⇅";
+          }
+        });
+      };
+
+      const renderTable = () => {
+        if (!tableBody) return;
+        if (!currentData.length) {
+          tableBody.innerHTML = '<tr><td colspan="3">No stars collected for this year yet.</td></tr>';
+          return;
+        }
+
+        const sortedRows = sortRows(currentData);
+        tableBody.innerHTML = sortedRows
+          .map(
+            (row) => `
+            <tr>
+              <td>${row.name}</td>
+              <td>${row.stars}</td>
+              <td><span data-seconds="${row.totalSeconds}">${formatDuration(row.totalSeconds)}</span></td>
+            </tr>`
+          )
+          .join("");
+      };
+
+      const loadYear = async (year) => {
+        if (cachedYears[year]) {
+          currentData = cachedYears[year];
+          renderTable();
+          updateSortIndicators();
+          return;
+        }
+
+        try {
+          const response = await fetch(`${year}.json`);
+          const leaderboard = await response.json();
+          cachedYears[year] = computeCombinedTimes(leaderboard, year);
+          currentData = cachedYears[year];
+          renderTable();
+          updateSortIndicators();
+        } catch (error) {
+          tableBody.innerHTML = '<tr><td colspan="3">Unable to load leaderboard data.</td></tr>';
+          console.error("Failed to load combined times", error);
+        }
+      };
+
+      tableHeaders.forEach((header) => {
+        header.addEventListener("click", () => {
+          const { sort } = header.dataset;
+          if (currentSort.key === sort) {
+            currentSort = { ...currentSort, direction: currentSort.direction === "asc" ? "desc" : "asc" };
+          } else {
+            currentSort = { key: sort, direction: sort === "stars" ? "desc" : "asc" };
+          }
+          updateSortIndicators();
+          renderTable();
+        });
+      });
+
+      if (yearSelect) {
+        yearSelect.addEventListener("change", (event) => {
+          const { value } = event.target;
+          loadYear(value);
+        });
+        loadYear(yearSelect.value);
+      }
+    })();
+  </script>
 </body>
 
 </html>
