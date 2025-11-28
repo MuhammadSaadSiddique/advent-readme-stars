@@ -20,8 +20,19 @@
   <style>
     body {
       margin: 0;
-      padding: 12px;
+      padding: 20px;
       overflow-x: hidden;
+      background: #f4f7fb;
+      color: #0d1117;
+      font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, 'Helvetica Neue', Arial, sans-serif;
+    }
+
+    .page-shell {
+      max-width: 1200px;
+      margin: 0 auto 24px;
+      display: flex;
+      flex-direction: column;
+      gap: 20px;
     }
 
     .hero {
@@ -103,6 +114,42 @@
       gap: 10px;
       flex-wrap: wrap;
       margin: 12px 0 0;
+    }
+
+    .page-links {
+      background: #fff;
+      border: 1px solid #e1e8f0;
+      border-radius: 14px;
+      padding: 18px;
+      box-shadow: 0 12px 30px rgba(0, 0, 0, 0.06);
+    }
+
+    .link-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+      gap: 12px;
+      margin-top: 12px;
+    }
+
+    .link-card {
+      background: #f7fbff;
+      border: 1px solid #dfe5eb;
+      border-radius: 12px;
+      padding: 14px;
+      box-shadow: 0 6px 18px rgba(0, 0, 0, 0.05);
+      display: grid;
+      gap: 6px;
+    }
+
+    .link-card__title {
+      margin: 0;
+      font-size: 18px;
+    }
+
+    .link-card__body {
+      margin: 0;
+      color: #355b75;
+      line-height: 1.5;
     }
 
     .button--primary {
@@ -437,25 +484,50 @@
 </head>
 
   <body>
-    <div id="__next" data-reactroot="">
-      <div class="index_homeBackground___HIIi">
+    <div class="page-shell">
+      <div id="__next" data-reactroot="">
+        <div class="index_homeBackground___HIIi">
 
-        <div class="index_header__25ySr">
-          <img class="index_christmasTree__I6sGC" src="img/advent-of-code-tree.webp" alt="advent of code tree" width="117"
-            height="146" />
-          <div class="index_titleContainer__i1_6Y">
-            <h1>Advent of Code</h1>
-            <strong>2021-2024</strong>
+          <div class="index_header__25ySr">
+            <img class="index_christmasTree__I6sGC" src="img/advent-of-code-tree.webp" alt="advent of code tree" width="117"
+              height="146" />
+            <div class="index_titleContainer__i1_6Y">
+              <h1>Advent of Code</h1>
+              <strong>2021-2024</strong>
+            </div>
           </div>
         </div>
       </div>
-    </div>
 
     <nav class="nav-bar" aria-label="Page navigation">
       <a class="button button--primary" href="index.html">Leaderboard home</a>
-      <a class="button button--ghost" href="registration.html">Registration page</a>
+      <a class="button button--ghost" href="https://forms.gle/5nrseJsdE7GhC14Z9" target="_blank" rel="noreferrer">Registration page</a>
       <a class="button button--ghost" href="stats.html">Stats & high scores</a>
     </nav>
+
+    <section class="page-links" aria-labelledby="quick-links">
+      <div class="section__header">
+        <h2 id="quick-links">Jump to the right page</h2>
+        <p>Find registration, stats, and resources without scrolling through the entire table.</p>
+      </div>
+      <div class="link-grid">
+        <article class="link-card">
+          <h3 class="link-card__title">Registration</h3>
+          <p class="link-card__body">Secure your spot for the next season and get notified when puzzles release.</p>
+          <a class="button button--primary" href="https://forms.gle/5nrseJsdE7GhC14Z9" target="_blank" rel="noreferrer">Go to registration</a>
+        </article>
+        <article class="link-card">
+          <h3 class="link-card__title">Stats & high scores</h3>
+          <p class="link-card__body">Review record times, annual champions, and performance insights.</p>
+          <a class="button button--ghost" href="stats.html">View stats page</a>
+        </article>
+        <article class="link-card">
+          <h3 class="link-card__title">Leaderboard code</h3>
+          <p class="link-card__body">Copy the private code and join the Pakistan community leaderboard instantly.</p>
+          <a class="button button--ghost" href="#leaderboard">Copy code below</a>
+        </article>
+      </div>
+    </section>
 
 
     <section class="hero">
@@ -465,7 +537,7 @@
         <p class="hero__subtitle">Follow the journey of local developers mastering daily puzzles and pushing Pakistan to
           the global stage.</p>
         <div class="hero__actions">
-          <a class="button button--primary" href="registration.html">Register for the event</a>
+          <a class="button button--primary" href="https://forms.gle/5nrseJsdE7GhC14Z9" target="_blank" rel="noreferrer">Register for the event</a>
           <a class="button button--ghost" href="#leaderboard">Join the leaderboard</a>
         </div>
       </div>
@@ -518,13 +590,13 @@
           <ol class="actions__steps">
             <li>Sign in at <a href="https://adventofcode.com" target="_blank" rel="noreferrer">adventofcode.com</a>
               with GitHub, Google, or Reddit.</li>
-            <li>Reserve your competition spot by completing the <a href="registration.html">participant
+            <li>Reserve your competition spot by completing the <a href="https://forms.gle/5nrseJsdE7GhC14Z9" target="_blank" rel="noreferrer">participant
                 registration form</a>.</li>
             <li>Visit the calendar in December to unlock the daily puzzles.</li>
             <li>Share your progress with the Pakistan community using our leaderboard code.</li>
           </ol>
           <div class="hero__actions" style="padding-left:0;">
-            <a class="button button--primary" href="registration.html">Go to registration page</a>
+            <a class="button button--primary" href="https://forms.gle/5nrseJsdE7GhC14Z9" target="_blank" rel="noreferrer">Go to registration page</a>
             <a class="button button--ghost" href="https://adventofcode.com/">Go to Advent of Code</a>
           </div>
         </div>
@@ -9422,6 +9494,7 @@
     </div>
 
 
+  </div>
   </div>
 </body>
 
