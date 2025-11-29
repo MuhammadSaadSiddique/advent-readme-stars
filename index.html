@@ -221,6 +221,118 @@
       color: #355b75;
     }
 
+    .combined-times {
+      background: #fff;
+      border: 1px solid #e1e8f0;
+      border-radius: 14px;
+      padding: 18px;
+      box-shadow: 0 12px 30px rgba(0, 0, 0, 0.06);
+      display: flex;
+      flex-direction: column;
+      gap: 12px;
+    }
+
+    .combined-layout {
+      display: grid;
+      grid-template-columns: 1.2fr 1.4fr;
+      gap: 16px;
+      align-items: start;
+    }
+
+    .combined-controls {
+      display: flex;
+      gap: 12px;
+      align-items: center;
+      flex-wrap: wrap;
+    }
+
+    .combined-visual {
+      border: 1px solid #e1e8f0;
+      border-radius: 12px;
+      padding: 14px;
+      background: #f7fbff;
+      box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.6);
+      display: flex;
+      flex-direction: column;
+      gap: 10px;
+    }
+
+    .combined-chart {
+      width: 100%;
+      min-height: 300px;
+    }
+
+    .combined-chart svg {
+      width: 100%;
+      height: auto;
+    }
+
+    .combined-chart__label {
+      font-size: 12px;
+      fill: #0d1117;
+      font-weight: 700;
+    }
+
+    .combined-chart__value {
+      font-size: 12px;
+      fill: #355b75;
+      font-weight: 700;
+    }
+
+    .combined-chart__bar {
+      fill: #00a2ff;
+      opacity: 0.8;
+    }
+
+    .combined-controls label {
+      font-weight: 600;
+      color: #0d1117;
+    }
+
+    .combined-controls select {
+      padding: 8px 10px;
+      border-radius: 10px;
+      border: 1px solid #dfe5eb;
+      background: #f7fbff;
+      font-weight: 600;
+    }
+
+    .combined-table {
+      width: 100%;
+      border-collapse: collapse;
+    }
+
+    .combined-table th,
+    .combined-table td {
+      text-align: left;
+      padding: 10px;
+      border-bottom: 1px solid #eef2f7;
+    }
+
+    .combined-table th {
+      background: #f4f7fb;
+      color: #355b75;
+      cursor: pointer;
+      user-select: none;
+      position: relative;
+    }
+
+    .combined-table th .sort-indicator {
+      margin-left: 8px;
+      font-size: 12px;
+      color: #7a90a4;
+    }
+
+    .combined-table tbody tr:hover {
+      background: #f7fbff;
+    }
+
+    .combined-note {
+      margin: 0;
+      color: #355b75;
+      font-size: 14px;
+    }
+
     .actions__content {
       display: grid;
       grid-template-columns: 2fr 1fr;
@@ -344,6 +456,10 @@
       /* smartphones, portrait iPhone, portrait 480x320 phones (Android) */
       .hero,
       .actions__content {
+        grid-template-columns: 1fr;
+      }
+
+      .combined-layout {
         grid-template-columns: 1fr;
       }
 
@@ -578,6 +694,50 @@
           <p class="stat-card__meta">Four years of Pakistan leaderboard history</p>
         </div>
       </div>
+    </section>
+
+    <section class="combined-times" id="combined-times" aria-labelledby="combined-times-title">
+      <div class="section__header">
+        <h2 id="combined-times-title">Combined star time leaderboard</h2>
+        <p>Fastest aggregate completion time across all earned stars, calculated directly from the leaderboard JSON.</p>
+      </div>
+      <div class="combined-controls">
+        <label for="combined-year">Choose year</label>
+        <select id="combined-year">
+          <option value="2024" selected>2024</option>
+          <option value="2023">2023</option>
+          <option value="2022">2022</option>
+          <option value="2021">2021</option>
+        </select>
+        <p class="combined-note">Click any header to change the sort order.</p>
+      </div>
+      <div class="combined-layout">
+        <div class="combined-visual">
+          <div class="section__header" style="margin:0;">
+            <h3 style="margin:0;">Top combined-time finishers</h3>
+            <p style="margin:0;">User-based ranking with a quick visual snapshot.</p>
+          </div>
+          <div id="combined-chart" class="combined-chart" role="img" aria-label="Bar chart of fastest combined times"></div>
+        </div>
+        <div class="combined-table-wrapper">
+          <table class="combined-table" id="combined-table">
+            <thead>
+              <tr>
+                <th scope="col" data-sort="rank">Rank <span class="sort-indicator">⇅</span></th>
+                <th scope="col" data-sort="name">Name <span class="sort-indicator">⇅</span></th>
+                <th scope="col" data-sort="stars">Stars <span class="sort-indicator">⇅</span></th>
+                <th scope="col" data-sort="time">Combined time <span class="sort-indicator">⇅</span></th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr>
+                <td colspan="4">Loading combined times…</td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+      </div>
+      <p class="combined-note">Combined time sums the gap between each puzzle's release (05:00 UTC) and the timestamp for every collected star.</p>
     </section>
 
     <section class="actions" id="register" aria-labelledby="join-actions">
@@ -9496,6 +9656,232 @@
 
   </div>
   </div>
+  <script>
+    (() => {
+      const yearSelect = document.getElementById("combined-year");
+      const tableBody = document.querySelector("#combined-table tbody");
+      const tableHeaders = document.querySelectorAll("#combined-table th[data-sort]");
+      const chartContainer = document.getElementById("combined-chart");
+      const cachedYears = {};
+      let currentData = [];
+      let currentSort = { key: "rank", direction: "asc" };
+
+      const formatDuration = (totalSeconds) => {
+        const seconds = Math.floor(totalSeconds % 60).toString().padStart(2, "0");
+        const minutes = Math.floor((totalSeconds / 60) % 60).toString().padStart(2, "0");
+        const hours = Math.floor((totalSeconds / 3600) % 24).toString().padStart(2, "0");
+        const days = Math.floor(totalSeconds / 86400);
+        return days > 0 ? `${days}d ${hours}:${minutes}:${seconds}` : `${hours}:${minutes}:${seconds}`;
+      };
+
+      const computeCombinedTimes = (leaderboard, year) => {
+        const results = [];
+        Object.values(leaderboard?.members || {}).forEach((member) => {
+          if (!member.name) return;
+          const completion = member.completion_day_level || {};
+          let totalSeconds = 0;
+          let stars = 0;
+
+          for (let day = 1; day <= 25; day += 1) {
+            const dayData = completion[String(day)];
+            if (!dayData) continue;
+
+            ["1", "2"].forEach((part) => {
+              const partInfo = dayData[part];
+              if (!partInfo) return;
+
+              const releaseTime = Date.UTC(Number(year), 11, day, 5, 0, 0) / 1000;
+              const elapsed = Math.max(0, partInfo.get_star_ts - releaseTime);
+
+              totalSeconds += elapsed;
+              stars += 1;
+            });
+          }
+
+          results.push({
+            name: member.name,
+            stars,
+            totalSeconds,
+          });
+        });
+
+        const ranked = [...results].sort((a, b) => {
+          const timeDiff = a.totalSeconds - b.totalSeconds;
+          if (timeDiff !== 0) return timeDiff;
+          const starDiff = b.stars - a.stars;
+          if (starDiff !== 0) return starDiff;
+          return a.name.localeCompare(b.name);
+        });
+
+        let currentRank = 1;
+        ranked.forEach((entry, index) => {
+          if (index > 0) {
+            const previous = ranked[index - 1];
+            if (
+              previous.totalSeconds !== entry.totalSeconds ||
+              previous.stars !== entry.stars
+            ) {
+              currentRank = index + 1;
+            }
+          }
+          entry.rank = currentRank;
+        });
+
+        return results;
+      };
+
+      const sortRows = (rows) => {
+        const sorted = [...rows];
+        sorted.sort((a, b) => {
+          if (currentSort.key === "rank") {
+            const diff = a.rank - b.rank;
+            if (diff !== 0) return currentSort.direction === "asc" ? diff : -diff;
+          }
+
+          if (currentSort.key === "time") {
+            const diff = a.totalSeconds - b.totalSeconds;
+            if (diff !== 0) return currentSort.direction === "asc" ? diff : -diff;
+          }
+
+          if (currentSort.key === "stars") {
+            const diff = b.stars - a.stars;
+            if (diff !== 0) return currentSort.direction === "asc" ? -diff : diff;
+          }
+
+          if (currentSort.key === "name") {
+            const diff = a.name.localeCompare(b.name);
+            if (diff !== 0) return currentSort.direction === "asc" ? diff : -diff;
+          }
+
+          const baseTime = a.totalSeconds - b.totalSeconds;
+          if (baseTime !== 0) return baseTime;
+          const baseStars = b.stars - a.stars;
+          if (baseStars !== 0) return baseStars;
+          return a.name.localeCompare(b.name);
+        });
+        return sorted;
+      };
+
+      const updateSortIndicators = () => {
+        tableHeaders.forEach((header) => {
+          const indicator = header.querySelector(".sort-indicator");
+          if (!indicator) return;
+          if (header.dataset.sort === currentSort.key) {
+            indicator.textContent = currentSort.direction === "asc" ? "↑" : "↓";
+          } else {
+            indicator.textContent = "⇅";
+          }
+        });
+      };
+
+      const renderChart = () => {
+        if (!chartContainer) return;
+        if (!currentData.length) {
+          chartContainer.innerHTML = '<p class="combined-note">No data available for this year yet.</p>';
+          return;
+        }
+
+        const rankedRows = [...currentData].sort((a, b) => {
+          const rankDiff = a.rank - b.rank;
+          if (rankDiff !== 0) return rankDiff;
+          const timeDiff = a.totalSeconds - b.totalSeconds;
+          if (timeDiff !== 0) return timeDiff;
+          return a.name.localeCompare(b.name);
+        }).slice(0, 10);
+
+        const maxTime = Math.max(...rankedRows.map((row) => row.totalSeconds));
+        const width = chartContainer.clientWidth || 640;
+        const barHeight = 26;
+        const barGap = 12;
+        const height = rankedRows.length * (barHeight + barGap);
+
+        const bars = rankedRows
+          .map((row, index) => {
+            const barWidth = maxTime ? Math.max(8, (row.totalSeconds / maxTime) * (width - 190)) : 8;
+            const y = index * (barHeight + barGap);
+            return `
+              <g transform="translate(0, ${y})">
+                <text x="0" y="${barHeight - 8}" class="combined-chart__label">${row.rank}. ${row.name}</text>
+                <rect x="150" y="0" width="${barWidth}" height="${barHeight}" rx="6" class="combined-chart__bar"></rect>
+                <text x="${150 + barWidth + 10}" y="${barHeight - 8}" class="combined-chart__value">${formatDuration(row.totalSeconds)}</text>
+              </g>
+            `;
+          })
+          .join("");
+
+        chartContainer.innerHTML = `
+          <svg viewBox="0 0 ${width} ${height}" preserveAspectRatio="xMinYMin meet" aria-label="Top ten combined times">
+            ${bars}
+          </svg>
+        `;
+      };
+
+      const renderTable = () => {
+        if (!tableBody) return;
+        if (!currentData.length) {
+          tableBody.innerHTML = '<tr><td colspan="4">No stars collected for this year yet.</td></tr>';
+          renderChart();
+          return;
+        }
+
+        const sortedRows = sortRows(currentData);
+        tableBody.innerHTML = sortedRows
+          .map(
+            (row) => `
+            <tr>
+              <td>${row.rank}</td>
+              <td>${row.name}</td>
+              <td>${row.stars}</td>
+              <td><span data-seconds="${row.totalSeconds}">${formatDuration(row.totalSeconds)}</span></td>
+            </tr>`
+          )
+          .join("");
+        renderChart();
+      };
+
+      const loadYear = async (year) => {
+        if (cachedYears[year]) {
+          currentData = cachedYears[year];
+          renderTable();
+          updateSortIndicators();
+          return;
+        }
+
+        try {
+          const response = await fetch(`${year}.json`);
+          const leaderboard = await response.json();
+          cachedYears[year] = computeCombinedTimes(leaderboard, year);
+          currentData = cachedYears[year];
+          renderTable();
+          updateSortIndicators();
+        } catch (error) {
+          tableBody.innerHTML = '<tr><td colspan="4">Unable to load leaderboard data.</td></tr>';
+          console.error("Failed to load combined times", error);
+        }
+      };
+
+      tableHeaders.forEach((header) => {
+        header.addEventListener("click", () => {
+          const { sort } = header.dataset;
+          if (currentSort.key === sort) {
+            currentSort = { ...currentSort, direction: currentSort.direction === "asc" ? "desc" : "asc" };
+          } else {
+            currentSort = { key: sort, direction: sort === "stars" ? "desc" : "asc" };
+          }
+          updateSortIndicators();
+          renderTable();
+        });
+      });
+
+      if (yearSelect) {
+        yearSelect.addEventListener("change", (event) => {
+          const { value } = event.target;
+          loadYear(value);
+        });
+        loadYear(yearSelect.value);
+      }
+    })();
+  </script>
 </body>
 
 </html>
