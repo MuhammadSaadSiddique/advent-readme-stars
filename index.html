@@ -379,6 +379,112 @@
       gap: 0.4rem;
     }
 
+    .events {
+      background: #fff;
+      border: 1px solid #e1e8f0;
+      border-radius: 14px;
+      padding: 18px;
+      box-shadow: 0 12px 30px rgba(0, 0, 0, 0.06);
+      display: flex;
+      flex-direction: column;
+      gap: 16px;
+    }
+
+    .events__grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
+      gap: 12px;
+    }
+
+    .event-card {
+      border: 1px solid #dfe5eb;
+      border-radius: 12px;
+      padding: 14px;
+      background: #f7fbff;
+      display: grid;
+      gap: 8px;
+      box-shadow: 0 6px 18px rgba(0, 0, 0, 0.05);
+    }
+
+    .event-card h3 {
+      margin: 0;
+    }
+
+    .event-card p {
+      margin: 0;
+      color: #355b75;
+      line-height: 1.5;
+    }
+
+    .recordings {
+      background: #fff;
+      border: 1px solid #e1e8f0;
+      border-radius: 14px;
+      padding: 18px;
+      box-shadow: 0 12px 30px rgba(0, 0, 0, 0.06);
+      display: grid;
+      gap: 16px;
+    }
+
+    .recordings__header {
+      display: flex;
+      flex-wrap: wrap;
+      justify-content: space-between;
+      gap: 12px;
+      align-items: center;
+    }
+
+    .recordings__actions {
+      display: flex;
+      gap: 8px;
+      flex-wrap: wrap;
+    }
+
+    .recordings__grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
+      gap: 12px;
+    }
+
+    .recording-card {
+      border: 1px solid #dfe5eb;
+      border-radius: 12px;
+      padding: 14px;
+      background: #f7fbff;
+      display: grid;
+      gap: 8px;
+      box-shadow: 0 6px 18px rgba(0, 0, 0, 0.05);
+      text-decoration: none;
+      color: inherit;
+    }
+
+    .recording-card h3 {
+      margin: 0;
+    }
+
+    .recording-card p {
+      margin: 0;
+      color: #355b75;
+      line-height: 1.5;
+    }
+
+    .recording-card__meta {
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      font-weight: 700;
+      color: #0d1117;
+      background: #e4f3ff;
+      border-radius: 999px;
+      padding: 6px 10px;
+      width: fit-content;
+    }
+
+    .recording-card__meta span {
+      color: #355b75;
+      font-weight: 600;
+    }
+
     .social-icon {
       display: flex;
       flex-direction: row;
@@ -619,6 +725,96 @@
       <a class="button button--ghost" href="stats.html">Stats & high scores</a>
     </nav>
 
+    <section class="events" aria-labelledby="events-title">
+      <div class="section__header">
+        <h2 id="events-title">Upcoming community sessions</h2>
+        <p>Learn with peers between Advent of Code seasons through focused training and mentorship.</p>
+      </div>
+      <div class="events__grid">
+        <div class="event-card">
+          <h3>GitHub collaboration training</h3>
+          <p>Deep dive into issues, pull requests, and reviews with hands-on practice using this leaderboard project.</p>
+        </div>
+        <div class="event-card">
+          <h3>LinkedIn profile clinic</h3>
+          <p>Pair with mentors to polish your headline, projects, and achievements so recruiters can find you.</p>
+        </div>
+        <div class="event-card">
+          <h3>Final year project mentorship</h3>
+          <p>Get guidance on scoping, milestones, and presenting your FYP with feedback from experienced alumni.</p>
+        </div>
+      </div>
+    </section>
+
+    <section class="recordings" aria-labelledby="recordings-title">
+      <div class="recordings__header">
+        <div class="section__header" style="margin:0;">
+          <h2 id="recordings-title">Catch up on YouTube recordings</h2>
+          <p>Replay Advent of Code sessions, leaderboard walkthroughs, and community recaps anytime.</p>
+        </div>
+        <div class="recordings__actions">
+          <a class="button button--primary" href="https://www.youtube.com/channel/UCncR7GkMuJxzSfqbJ9o6nEw" target="_blank" rel="noreferrer">Open Wisdom Seekres channel</a>
+          <a class="button button--ghost" href="https://www.youtube.com/channel/UCncR7GkMuJxzSfqbJ9o6nEw/playlists" target="_blank" rel="noreferrer">View playlists</a>
+        </div>
+      </div>
+      <div class="recordings__grid">
+        <a class="recording-card" href="https://www.youtube.com/live/kLCJwd0QGtY?si=KUk5b1aVuyINYVHa" target="_blank" rel="noreferrer">
+          <div class="recording-card__meta">YouTube • <span>Full session</span></div>
+          <h3>How to choose your career and get knowledge about it</h3>
+          <p>Watch full-length recordings to start your career, step by step.</p>
+        </a>
+        <a class="recording-card" href="https://youtu.be/NLfaoyInKbA?si=CQ0dcRQAbelAfaQP" target="_blank" rel="noreferrer">
+          <div class="recording-card__meta">Highlights • <span>Strategy</span></div>
+          <h3>How to Create a Weekly Reflection Schedule with ChatGPT (Islamic Perspective)</h3>
+          <p>See how the quickest solvers strategize day.</p>
+        </a>
+        
+      </div>
+    </section>
+
+    <div class="info-section">
+
+      <h2>Created By Muhammad Saad Siddique - Connect with me</h2>
+
+      <div class="social-icon">
+        <a href="https://github.com/MuhammadSaadSiddique" rel="nofollow"><img align="center"
+            src="https://cdn.jsdelivr.net/npm/simple-icons@3.0.1/icons/github.svg" alt="muhammaadsaad" height="30"
+            width="40" style="max-width: 100%;background: azure;"></a>
+        <a href="https://linkedin.com/in/muhammad-saad-siddique" rel="nofollow"><img align="center"
+            src="https://raw.githubusercontent.com/rahuldkjain/github-profile-readme-generator/master/src/images/icons/Social/linked-in-alt.svg"
+            alt="muhammaadsaad" height="30" width="40" style="max-width: 100%;"></a>
+        <a href="https://stackoverflow.com/users/7878118" rel="nofollow"><img align="center"
+            src="https://raw.githubusercontent.com/rahuldkjain/github-profile-readme-generator/master/src/images/icons/Social/stack-overflow.svg"
+            alt="7878118" height="30" width="40" style="max-width: 100%;"></a>
+        <a href="https://www.kaggle.com/muhammadsaadsiddique" rel="nofollow"><img align="center"
+            src="https://raw.githubusercontent.com/rahuldkjain/github-profile-readme-generator/master/src/images/icons/Social/kaggle.svg"
+            alt="muhammaadsaad" height="30" width="40" style="max-width: 100%;"></a>
+        <a href="https://www.facebook.com/saadsiddiquehere" rel="nofollow"><img align="center"
+            src="https://raw.githubusercontent.com/rahuldkjain/github-profile-readme-generator/master/src/images/icons/Social/facebook.svg"
+            alt="muhammaadsaad" height="30" width="40" style="max-width: 100%;"></a>
+        <a href="https://www.youtube.com/channel/UCncR7GkMuJxzSfqbJ9o6nEw" rel="nofollow"><img align="center"
+            src="https://raw.githubusercontent.com/rahuldkjain/github-profile-readme-generator/master/src/images/icons/Social/youtube.svg"
+            alt="maza point" height="30" width="40" style="max-width: 100%;"></a>
+        <a href="https://www.leetcode.com/MuhammadSaadSiddique" rel="nofollow"><img align="center"
+            src="https://raw.githubusercontent.com/rahuldkjain/github-profile-readme-generator/master/src/images/icons/Social/leet-code.svg"
+            alt="muhammaadsaad" height="30" width="40" style="max-width: 100%;"></a>
+        <a href="https://discord.gg/#2458" rel="nofollow"><img align="center"
+            src="https://raw.githubusercontent.com/rahuldkjain/github-profile-readme-generator/master/src/images/icons/Social/discord.svg"
+            alt="#2458" height="30" width="40" style="max-width: 100%;"></a>
+      </div>
+
+      <div>
+        <a href="#" title="free website hit counters"><img
+            src="https://counter7.optistats.ovh/private/freecounterstat.php?c=gzynnsq22s37rlx2bqq8r5hptkrldssl" border="0"
+            title="free website hit counters" alt="free website hit counters"></a>
+      </div>
+
+      <p class="jointext">
+        Others Pakistan Citizens can join it using the code <b>1739374-77ea5f22 </b>
+      </p>
+
+    </div>
+    
     <section class="page-links" aria-labelledby="quick-links">
       <div class="section__header">
         <h2 id="quick-links">Jump to the right page</h2>
@@ -716,6 +912,50 @@
       <p class="combined-note">Combined time sums the gap between each puzzle's release (05:00 UTC) and the timestamp for every collected star.</p>
     </section>
 
+    <section class="combined-times" id="combined-times" aria-labelledby="combined-times-title">
+      <div class="section__header">
+        <h2 id="combined-times-title">Combined star time leaderboard</h2>
+        <p>Fastest aggregate completion time across all earned stars, calculated directly from the leaderboard JSON.</p>
+      </div>
+      <div class="combined-controls">
+        <label for="combined-year">Choose year</label>
+        <select id="combined-year">
+          <option value="2024" selected>2024</option>
+          <option value="2023">2023</option>
+          <option value="2022">2022</option>
+          <option value="2021">2021</option>
+        </select>
+        <p class="combined-note">Click any header to change the sort order.</p>
+      </div>
+      <div class="combined-layout">
+        <div class="combined-visual">
+          <div class="section__header" style="margin:0;">
+            <h3 style="margin:0;">Top combined-time finishers</h3>
+            <p style="margin:0;">User-based ranking with a quick visual snapshot.</p>
+          </div>
+          <div id="combined-chart" class="combined-chart" role="img" aria-label="Bar chart of fastest combined times"></div>
+        </div>
+        <div class="combined-table-wrapper">
+          <table class="combined-table" id="combined-table">
+            <thead>
+              <tr>
+                <th scope="col" data-sort="rank">Rank <span class="sort-indicator">⇅</span></th>
+                <th scope="col" data-sort="name">Name <span class="sort-indicator">⇅</span></th>
+                <th scope="col" data-sort="stars">Stars <span class="sort-indicator">⇅</span></th>
+                <th scope="col" data-sort="time">Combined time <span class="sort-indicator">⇅</span></th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr>
+                <td colspan="4">Loading combined times…</td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+      </div>
+      <p class="combined-note">Combined time sums the gap between each puzzle's release (05:00 UTC) and the timestamp for every collected star.</p>
+    </section>
+
     <section class="actions" id="register" aria-labelledby="join-actions">
       <div class="section__header">
         <h2 id="join-actions">Register for the event</h2>
@@ -745,48 +985,6 @@
       </div>
     </section>
 
-    <div class="info-section">
-
-      <h2>Created By Muhammad Saad Siddique - Connect with me</h2>
-
-      <div class="social-icon">
-        <a href="https://github.com/MuhammadSaadSiddique" rel="nofollow"><img align="center"
-            src="https://cdn.jsdelivr.net/npm/simple-icons@3.0.1/icons/github.svg" alt="muhammaadsaad" height="30"
-            width="40" style="max-width: 100%;background: azure;"></a>
-        <a href="https://linkedin.com/in/muhammad-saad-siddique" rel="nofollow"><img align="center"
-            src="https://raw.githubusercontent.com/rahuldkjain/github-profile-readme-generator/master/src/images/icons/Social/linked-in-alt.svg"
-            alt="muhammaadsaad" height="30" width="40" style="max-width: 100%;"></a>
-        <a href="https://stackoverflow.com/users/7878118" rel="nofollow"><img align="center"
-            src="https://raw.githubusercontent.com/rahuldkjain/github-profile-readme-generator/master/src/images/icons/Social/stack-overflow.svg"
-            alt="7878118" height="30" width="40" style="max-width: 100%;"></a>
-        <a href="https://www.kaggle.com/muhammadsaadsiddique" rel="nofollow"><img align="center"
-            src="https://raw.githubusercontent.com/rahuldkjain/github-profile-readme-generator/master/src/images/icons/Social/kaggle.svg"
-            alt="muhammaadsaad" height="30" width="40" style="max-width: 100%;"></a>
-        <a href="https://www.facebook.com/saadsiddiquehere" rel="nofollow"><img align="center"
-            src="https://raw.githubusercontent.com/rahuldkjain/github-profile-readme-generator/master/src/images/icons/Social/facebook.svg"
-            alt="muhammaadsaad" height="30" width="40" style="max-width: 100%;"></a>
-        <a href="https://www.youtube.com/channel/UCncR7GkMuJxzSfqbJ9o6nEw" rel="nofollow"><img align="center"
-            src="https://raw.githubusercontent.com/rahuldkjain/github-profile-readme-generator/master/src/images/icons/Social/youtube.svg"
-            alt="maza point" height="30" width="40" style="max-width: 100%;"></a>
-        <a href="https://www.leetcode.com/MuhammadSaadSiddique" rel="nofollow"><img align="center"
-            src="https://raw.githubusercontent.com/rahuldkjain/github-profile-readme-generator/master/src/images/icons/Social/leet-code.svg"
-            alt="muhammaadsaad" height="30" width="40" style="max-width: 100%;"></a>
-        <a href="https://discord.gg/#2458" rel="nofollow"><img align="center"
-            src="https://raw.githubusercontent.com/rahuldkjain/github-profile-readme-generator/master/src/images/icons/Social/discord.svg"
-            alt="#2458" height="30" width="40" style="max-width: 100%;"></a>
-      </div>
-
-      <div>
-        <a href="#" title="free website hit counters"><img
-            src="https://counter7.optistats.ovh/private/freecounterstat.php?c=gzynnsq22s37rlx2bqq8r5hptkrldssl" border="0"
-            title="free website hit counters" alt="free website hit counters"></a>
-      </div>
-
-      <p class="jointext">
-        Others Pakistan Citizens can join it using the code <b>1739374-77ea5f22 </b>
-      </p>
-
-    </div>
 
   <h2>Pakistan Leaderboard</h2>
   <div align="center">
