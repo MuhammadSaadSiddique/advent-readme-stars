@@ -57,7 +57,7 @@ def get_progress(year: str, leaderboard_id: int) -> dict:
 
         if score > 0:
             # Start of the HTML row
-            ft = f"<tr><th class='headcol'> {name} </th><th class='headcol2'> {score} </th>"
+            ft = f"<tr><th> {name} </th><th> {score} </th>"
 
             for d in range(1, 26):
                 parts = stars.get(str(d), {})
@@ -108,7 +108,7 @@ def insert_table(lines: List[str]) -> List[str]:
             
             # Start of the table structure
             firstLine = "<div class='divTableWrapper'><div class='divTableContainer'><table class='divTable'>"
-            firstLine += "<thead><tr><th class='headcol'> Name </th><th class='headcol2'> Score </th>"
+            firstLine += "<thead><tr><th> Name </th><th> Score </th>"
             
             # Day Headers
             for day in range(1, 26):
