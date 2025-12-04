@@ -104,7 +104,7 @@ def insert_table(lines: List[str]) -> List[str]:
         
         for y in YEAR.split(','):
             # Header for Year and Leaderboard
-            to_insert.append(f"<div class='section__header'>        <h2 id='overall-scores'>leaderboard_name} - {y} Results<</h2></div>")
+            to_insert.append(f"<div class='section__header'>        <h2 id='overall-scores'>{leaderboard_name} - {y} Results<</h2></div>")
             
             # Start of the table structure
             firstLine = "<div class='table__wrap'><div class='divTableContainer'><table>"
