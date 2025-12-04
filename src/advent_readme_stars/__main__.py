@@ -64,7 +64,7 @@ def get_progress(year: str, leaderboard_id: int) -> dict:
                 completed = parts.keys()
                 
                 # Column for Day 'd'
-                ft += "<td class='long'>"
+                ft += "<td>"
                 
                 # Part 1 (Silver Star)
                 # If part 1 exists, show star and time; otherwise, 6 spaces for alignment
@@ -104,17 +104,19 @@ def insert_table(lines: List[str]) -> List[str]:
         
         for y in YEAR.split(','):
             # Header for Year and Leaderboard
-            to_insert.append(f"<h2 class='text-2xl font-bold mt-8'>{leaderboard_name} - {y} Results</h2>")
+            to_insert.append(f"""<div class="section__header">
+        <h2 id="overall-scores">leaderboard_name} - {y} Results<</h2>
+      </div>""")
             
             # Start of the table structure
-            firstLine = "<div class='divTableWrapper'><div class='divTableContainer'><table class='divTable'>"
+            firstLine = "<div class='table__wrap'><div class='divTableContainer'><table>"
             firstLine += "<thead><tr><th> Name </th><th> Score </th>"
             
             # Day Headers
             for day in range(1, 26):
                 day_url = f"{ADVENT_URL}/{y}/day/{day}"
                 # Each day column will contain the two parts
-                firstLine += f"<th class='long'><a href=\"{day_url}\" target='_blank' class='day-link'>Day {day}</a></th>"
+                firstLine += f"<th><a href=\"{day_url}\" target='_blank' class='day-link'>Day {day}</a></th>"
 
             firstLine += "</tr></thead><tbody>"
             to_insert.append(firstLine)
