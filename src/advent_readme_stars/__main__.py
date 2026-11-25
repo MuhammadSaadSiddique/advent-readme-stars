@@ -134,15 +134,15 @@ def fallback_table(year: str, boards: Dict[int, dict]) -> List[str]:
     for member in merged.values():
         totals = member_totals(member, year)
         if totals["stars"]:
-            rows.append((totals["seconds"], member_name(member), totals["stars"]))
+            rows.append((-totals["stars"], totals["seconds"], member_name(member), totals["stars"]))
     rows.sort()
 
     lines = [
         "<noscript>",
-        f"<div class='section__header'><h2>{year} top {FALLBACK_ROWS} by total time</h2></div>",
+        f"<div class='section__header'><h2>{year} top {FALLBACK_ROWS} by stars, then time</h2></div>",
         "<div class='table__wrap'><table><thead><tr><th>Rank</th><th>Name</th><th>Stars</th><th>Total time</th></tr></thead><tbody>",
     ]
-    for rank, (seconds, name, stars) in enumerate(rows[:FALLBACK_ROWS], start=1):
+    for rank, (_stars_key, seconds, name, stars) in enumerate(rows[:FALLBACK_ROWS], start=1):
         lines.append(f"<tr><td>{rank}</td><td>{linked_name(name)}</td><td>{stars}</td><td>{format_duration(seconds)}</td></tr>")
     lines.append("</tbody></table></div>")
     lines.append("</noscript>")

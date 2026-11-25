@@ -996,7 +996,7 @@
     <section class="leaderboard" id="leaderboard-app" aria-labelledby="leaderboard-title">
       <div class="section__header">
         <h2 id="leaderboard-title">Pakistan Leaderboard</h2>
-        <p>Ranked by total solve time: the time from each puzzle's release to every star earned, added up.</p>
+        <p>Ranked by most stars, then lowest total time. Time is measured from each puzzle's release to every star earned.</p>
       </div>
 
       <div class="lb-controls">
@@ -1028,7 +1028,7 @@
           </table>
         </div>
         <div class="lb-visual">
-          <h3>Top 10 by total time</h3>
+          <h3>Top 10</h3>
           <div class="lb-chart" id="lb-chart"></div>
           <p class="lb-note">Click a row in the table to see that participant's time for each day.</p>
         </div>
@@ -1036,8 +1036,18 @@
 
 <!--- advent_readme_stars table --->
 <noscript>
-<div class='section__header'><h2>2026 top 10 by total time</h2></div>
+<div class='section__header'><h2>2025 top 10 by stars, then time</h2></div>
 <div class='table__wrap'><table><thead><tr><th>Rank</th><th>Name</th><th>Stars</th><th>Total time</th></tr></thead><tbody>
+<tr><td>1</td><td>Muhammad Mubashir</td><td>24</td><td>07:42:34</td></tr>
+<tr><td>2</td><td><a class="person-link" href="https://www.linkedin.com/in/muhammad-saad-siddique/" target="_blank" rel="noreferrer">Support Palestine</a></td><td>24</td><td>08:11:49</td></tr>
+<tr><td>3</td><td>Saqlain Abid</td><td>24</td><td>08:12:45</td></tr>
+<tr><td>4</td><td>Mahammad</td><td>24</td><td>11:01:46</td></tr>
+<tr><td>5</td><td>Husnain Akram</td><td>24</td><td>14:07:03</td></tr>
+<tr><td>6</td><td>areesa ashfaq</td><td>24</td><td>16:01:02</td></tr>
+<tr><td>7</td><td>safwanahmadsaffi</td><td>24</td><td>20:23:45</td></tr>
+<tr><td>8</td><td>Zain Shakoor</td><td>24</td><td>1d 03:45:36</td></tr>
+<tr><td>9</td><td>Ahmad Bilal</td><td>24</td><td>1d 05:44:01</td></tr>
+<tr><td>10</td><td>Aaqib Ali</td><td>24</td><td>1d 05:45:04</td></tr>
 </tbody></table></div>
 </noscript>
 <!--- advent_readme_stars table --->
@@ -1105,11 +1115,12 @@
       const boardName = (id) => (manifest.boards.find((board) => board.id === id) || {}).name || `Board ${id}`;
 
       const assignRanks = (rows) => {
-        const ranked = [...rows].sort((a, b) => a.totalSeconds - b.totalSeconds || a.name.localeCompare(b.name));
+        const ranked = [...rows].sort((a, b) => b.stars - a.stars || a.totalSeconds - b.totalSeconds || a.name.localeCompare(b.name));
         const ranks = new Map();
         ranked.forEach((row, index) => {
           const previous = ranked[index - 1];
-          ranks.set(row.id, previous && previous.totalSeconds === row.totalSeconds ? ranks.get(previous.id) : index + 1);
+          const tied = previous && previous.stars === row.stars && previous.totalSeconds === row.totalSeconds;
+          ranks.set(row.id, tied ? ranks.get(previous.id) : index + 1);
         });
         return rows.map((row) => ({ ...row, rank: ranks.get(row.id) }));
       };
@@ -1229,7 +1240,7 @@
           .join("");
 
         chartContainer.innerHTML = `
-          <svg viewBox="0 0 ${width} ${height}" preserveAspectRatio="xMinYMin meet" aria-label="Top ten by total time">${bars}</svg>`;
+          <svg viewBox="0 0 ${width} ${height}" preserveAspectRatio="xMinYMin meet" aria-label="Top ten by stars, then time">${bars}</svg>`;
       };
 
       const renderDays = (row) => {
