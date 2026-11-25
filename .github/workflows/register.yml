@@ -1,0 +1,36 @@
+name: Save registration
+on:
+  issues:
+    types: [opened]
+jobs:
+  save:
+    if: startsWith(github.event.issue.title, 'Registration:')
+    runs-on: ubuntu-latest
+    permissions:
+      contents: write
+      issues: write
+    steps:
+      - uses: actions/checkout@v4
+      - id: add
+        env:
+          ISSUE_BODY: ${{ github.event.issue.body }}
+        run: python scripts/add_registration.py
+      - uses: stefanzweifel/git-auto-commit-action@v5
+        if: steps.add.outputs.status == 'ADDED'
+        with:
+          commit_message: Add registration
+          file_pattern: data/registrations.json
+      - name: Reply on the issue
+        env:
+          GH_TOKEN: ${{ github.token }}
+          STATUS: ${{ steps.add.outputs.status }}
+          MESSAGE: ${{ steps.add.outputs.message }}
+          ISSUE: ${{ github.event.issue.number }}
+        run: |
+          if [ "$STATUS" = "ADDED" ]; then
+            gh issue close "$ISSUE" --comment "$MESSAGE. GitHub and LinkedIn links will appear on the registration page and beside the leaderboard name."
+          elif [ "$STATUS" = "DUPLICATE" ]; then
+            gh issue close "$ISSUE" --comment "$MESSAGE"
+          elif [ "$STATUS" = "INVALID" ]; then
+            gh issue comment "$ISSUE" --body "$MESSAGE"
+          fi

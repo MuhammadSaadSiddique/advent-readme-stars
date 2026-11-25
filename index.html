@@ -352,9 +352,15 @@
       width: 56px;
     }
 
-    a.person-link {
+    a.person-link,
+    a.lb-profile {
       color: #006bb8;
       font-weight: 700;
+    }
+
+    a.lb-profile {
+      margin-left: 6px;
+      font-size: 12px;
     }
 
     .hero__card a.person-link {
@@ -767,7 +773,7 @@
     <nav class="nav-bar" aria-label="Page navigation">
       <a class="button button--primary" href="index.html">Leaderboard home</a>
        <a class="button button--primary" href="https://discord.gg/Qcmgzr6skk">Join Developers Hub</a>
-      <a class="button button--ghost" href="https://forms.gle/5nrseJsdE7GhC14Z9" target="_blank" rel="noreferrer">Registration page</a>
+      <a class="button button--ghost" href="registration.html">Registration page</a>
       <a class="button button--ghost" href="stats.html">Stats & high scores</a>
     </nav>
 
@@ -894,7 +900,7 @@
         <article class="link-card">
           <h3 class="link-card__title">Registration</h3>
           <p class="link-card__body">Secure your spot for the next season and get notified when puzzles release.</p>
-          <a class="button button--primary" href="https://forms.gle/5nrseJsdE7GhC14Z9" target="_blank" rel="noreferrer">Go to registration</a>
+          <a class="button button--primary" href="registration.html">Go to registration</a>
         </article>
         <article class="link-card">
           <h3 class="link-card__title">Stats & high scores</h3>
@@ -917,7 +923,7 @@
         <p class="hero__subtitle">Follow the journey of local developers mastering daily puzzles and pushing Pakistan to
           the global stage.</p>
         <div class="hero__actions">
-          <a class="button button--primary" href="https://forms.gle/5nrseJsdE7GhC14Z9" target="_blank" rel="noreferrer">Register for the event</a>
+          <a class="button button--primary" href="registration.html">Register for the event</a>
           <a class="button button--ghost" href="#leaderboard">Join the leaderboard</a>
         </div>
       </div>
@@ -973,13 +979,13 @@
           <ol class="actions__steps">
             <li>Sign in at <a href="https://adventofcode.com" target="_blank" rel="noreferrer">adventofcode.com</a>
               with GitHub, Google, or Reddit.</li>
-            <li>Reserve your competition spot by completing the <a href="https://forms.gle/5nrseJsdE7GhC14Z9" target="_blank" rel="noreferrer">participant
+            <li>Reserve your competition spot by completing the <a href="registration.html">participant
                 registration form</a>.</li>
             <li>Visit the calendar in December to unlock the daily puzzles.</li>
             <li>Share your progress with the Pakistan community using our leaderboard code.</li>
           </ol>
           <div class="hero__actions" style="padding-left:0;">
-            <a class="button button--primary" href="https://forms.gle/5nrseJsdE7GhC14Z9" target="_blank" rel="noreferrer">Go to registration page</a>
+            <a class="button button--primary" href="registration.html">Go to registration page</a>
             <a class="button button--ghost" href="https://adventofcode.com/">Go to Advent of Code</a>
           </div>
         </div>
@@ -1084,11 +1090,27 @@
       const NAME_LINKS = {
         "support palestine": "https://www.linkedin.com/in/muhammad-saad-siddique/",
       };
+      let registrations = [];
+
+      const profileFor = (name) => {
+        const key = name.trim().toLowerCase();
+        return registrations.find((person) => (
+          String(person.aoc || "").trim().toLowerCase() === key
+          || String(person.name || "").trim().toLowerCase() === key
+        ));
+      };
 
       const renderName = (name) => {
         const safe = escapeHtml(name);
-        const url = NAME_LINKS[name.trim().toLowerCase()];
-        return url ? `<a class="person-link" href="${url}" target="_blank" rel="noreferrer">${safe}</a>` : safe;
+        const profile = profileFor(name);
+        if (!profile) {
+          const url = NAME_LINKS[name.trim().toLowerCase()];
+          return url ? `<a class="person-link" href="${url}" target="_blank" rel="noreferrer">${safe}</a>` : safe;
+        }
+        const links = [];
+        if (profile.github) links.push(`<a class="lb-profile" href="${escapeHtml(profile.github)}" target="_blank" rel="noreferrer">GitHub</a>`);
+        if (profile.linkedin) links.push(`<a class="lb-profile" href="${escapeHtml(profile.linkedin)}" target="_blank" rel="noreferrer">LinkedIn</a>`);
+        return `${safe}${links.length ? ` ${links.join("")}` : ""}`;
       };
 
       const fetchJson = (url) => {
@@ -1372,8 +1394,13 @@
       });
 
       (async () => {
-        [manifest, duplicates] = await Promise.all([fetchJson(`${DATA_DIR}manifest.json`), fetchJson(`${DATA_DIR}duplicates.json`)]);
+        [manifest, duplicates, registrations] = await Promise.all([
+          fetchJson(`${DATA_DIR}manifest.json`),
+          fetchJson(`${DATA_DIR}duplicates.json`),
+          fetchJson(`${DATA_DIR}registrations.json`),
+        ]);
         duplicates = duplicates || {};
+        registrations = Array.isArray(registrations) ? registrations : [];
         if (!manifest || !manifest.years.length) {
           summary.textContent = "Unable to load leaderboard data.";
           return;

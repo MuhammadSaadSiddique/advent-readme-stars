@@ -219,6 +219,33 @@
       color: #00a2ff;
     }
 
+    .directory {
+      width: 100%;
+      border-collapse: collapse;
+      min-width: 640px;
+    }
+
+    .directory th,
+    .directory td {
+      text-align: left;
+      padding: 10px;
+      border-bottom: 1px solid #e6edf3;
+    }
+
+    .directory th {
+      background: #f0f6fb;
+    }
+
+    .form-status {
+      grid-column: 1 / -1;
+      margin: 0;
+      font-weight: 700;
+    }
+
+    .form-status--error {
+      color: #9a1b1b;
+    }
+
     @media (max-width: 720px) {
       .hero {
         grid-template-columns: 1fr;
@@ -249,7 +276,7 @@
       <div class="hero-card">
         <h3>Event quick facts</h3>
         <ul>
-          <li>Eligible years: 2021-2024 (join any season that fits you)</li>
+          <li>Seasons on the leaderboard: 2021-2025</li>
           <li>Daily puzzles unlock at midnight EST during December</li>
           <li>Leaderboard resets each season—early registration recommended</li>
           <li>Private leaderboard code: <span class="code-pill">1739374-77ea5f22</span></li>
@@ -267,7 +294,7 @@
           <ol>
             <li>Create an Advent of Code account using GitHub, Google, or Reddit.</li>
             <li>Join the Pakistan private leaderboard with the code above.</li>
-            <li>Submit this registration so we can verify you and feature your progress.</li>
+            <li>Submit this form. It opens a GitHub issue, which is saved to the public registration list.</li>
           </ol>
         </div>
         <div class="card">
@@ -281,17 +308,38 @@
       </div>
     </section>
 
+    <section class="section" id="participants">
+      <h2>Registered participants</h2>
+      <p>GitHub and LinkedIn profiles from <code>data/registrations.json</code>. The same links appear beside a matching name on the leaderboard.</p>
+      <div style="overflow-x: auto;">
+        <table class="directory">
+          <thead>
+            <tr>
+              <th>Name</th>
+              <th>Advent of Code</th>
+              <th>GitHub</th>
+              <th>LinkedIn</th>
+              <th>Division</th>
+            </tr>
+          </thead>
+          <tbody id="participant-list">
+            <tr><td colspan="5">Loading registrations...</td></tr>
+          </tbody>
+        </table>
+      </div>
+    </section>
+
     <section class="section" id="registration-form">
       <h2>Participant registration form</h2>
-      <p>Fields marked with * are required so we can authenticate you on the leaderboard.</p>
-      <form>
+      <p>This replaces the Google Form. Submitting opens a GitHub issue in this repository. A workflow then adds you to the public JSON list. Email is not collected, because that list is public. Add at least one of GitHub or LinkedIn.</p>
+      <form id="signup">
         <label>
           Full name *
-          <input type="text" name="full-name" placeholder="Your name" required />
+          <input type="text" name="name" placeholder="Your name" required maxlength="80" />
         </label>
         <label>
-          Email address *
-          <input type="email" name="email" placeholder="you@example.com" required />
+          Advent of Code username *
+          <input type="text" name="aoc" placeholder="Matches your Advent of Code profile" required maxlength="80" />
         </label>
         <label>
           GitHub profile
@@ -299,11 +347,7 @@
         </label>
         <label>
           LinkedIn profile
-          <input type="url" name="linkedin" placeholder="https://linkedin.com/in/username" />
-        </label>
-        <label>
-          Advent of Code username *
-          <input type="text" name="aoc-username" placeholder="Matches your Advent of Code profile" required />
+          <input type="url" name="linkedin" placeholder="https://www.linkedin.com/in/username" />
         </label>
         <label>
           City / Time zone
@@ -320,9 +364,9 @@
         <label>
           Communication preference
           <select name="comms">
-            <option value="email">Email updates</option>
-            <option value="discord">Discord (invite sent after registration)</option>
-            <option value="both">Both email and Discord</option>
+            <option value="discord">Discord</option>
+            <option value="github">GitHub</option>
+            <option value="both">Discord and GitHub</option>
           </select>
         </label>
         <label>
@@ -337,9 +381,9 @@
           <textarea name="notes" placeholder="Tell us about your goals, team, or streaming plans"></textarea>
         </label>
         <div class="notice">
-          By submitting, you agree to receive competition updates and acknowledge that your handle may appear on the
-          public leaderboard showcase. I will follow what I have provided.
+          Your name, Advent of Code username, and profile links are published on this site. Submitting means you agree to that.
         </div>
+        <p class="form-status" id="form-status" role="status"></p>
         <div class="form-footer">
           <button class="button button--primary" type="submit">Submit registration</button>
           <a class="button button--ghost" href="index.html">Back to homepage</a>
@@ -354,5 +398,92 @@
         username so we can respond quickly.</p>
     </section>
   </div>
+  <script>
+    (() => {
+      const REPO = "MuhammadSaadSiddique/advent-readme-stars";
+      const list = document.getElementById("participant-list");
+      const form = document.getElementById("signup");
+      const status = document.getElementById("form-status");
+
+      const escapeHtml = (value) => String(value).replace(/[&<>"']/g, (c) => ({
+        "&": "&amp;", "<": "&lt;", ">": "&gt;", '"': "&quot;", "'": "&#39;",
+      })[c]);
+
+      const profileLink = (url, label) => (
+        url ? `<a href="${escapeHtml(url)}" target="_blank" rel="noreferrer">${label}</a>` : ""
+      );
+
+      const render = (people) => {
+        if (!people.length) {
+          list.innerHTML = '<tr><td colspan="5">No registrations yet.</td></tr>';
+          return;
+        }
+        list.innerHTML = people.map((person) => `
+          <tr>
+            <td>${escapeHtml(person.name || "")}</td>
+            <td>${escapeHtml(person.aoc || "")}</td>
+            <td>${profileLink(person.github, "GitHub")}</td>
+            <td>${profileLink(person.linkedin, "LinkedIn")}</td>
+            <td>${escapeHtml(person.division || "")}</td>
+          </tr>`).join("");
+      };
+
+      fetch("data/registrations.json", { cache: "no-cache" })
+        .then((response) => (response.ok ? response.json() : []))
+        .then((people) => render(Array.isArray(people) ? people : []))
+        .catch(() => {
+          list.innerHTML = '<tr><td colspan="5">Unable to load registrations.</td></tr>';
+        });
+
+      const cleanUrl = (value, kind) => {
+        const bare = value.trim().split("?")[0].split("#")[0].replace(/\/+$/, "");
+        if (!bare) return "";
+        if (kind === "github") {
+          const match = bare.match(/^https:\/\/github\.com\/([A-Za-z0-9](?:[A-Za-z0-9-]{0,37}[A-Za-z0-9])?)$/);
+          return match ? `https://github.com/${match[1]}` : null;
+        }
+        const match = bare.match(/^https:\/\/(?:www\.)?linkedin\.com\/in\/([A-Za-z0-9\-_%]+)$/i);
+        return match ? `https://www.linkedin.com/in/${match[1]}` : null;
+      };
+
+      form.addEventListener("submit", (event) => {
+        event.preventDefault();
+        const data = Object.fromEntries(new FormData(form));
+        const github = cleanUrl(data.github || "", "github");
+        const linkedin = cleanUrl(data.linkedin || "", "linkedin");
+        status.classList.add("form-status--error");
+        if (github === null) {
+          status.textContent = "GitHub profile must look like https://github.com/username";
+          return;
+        }
+        if (linkedin === null) {
+          status.textContent = "LinkedIn profile must look like https://www.linkedin.com/in/username";
+          return;
+        }
+        if (!github && !linkedin) {
+          status.textContent = "Add a GitHub or LinkedIn profile.";
+          return;
+        }
+        const notes = String(data.notes || "").replace(/\s+/g, " ").trim().slice(0, 500);
+        const body = [
+          "```registration",
+          `name: ${data.name.trim()}`,
+          `aoc: ${data.aoc.trim()}`,
+          `github: ${github}`,
+          `linkedin: ${linkedin}`,
+          `city: ${String(data.timezone || "").trim()}`,
+          `division: ${data.division}`,
+          `comms: ${data.comms}`,
+          `ai: ${data["ai-usage"]}`,
+          `notes: ${notes}`,
+          "```",
+        ].join("\n");
+        const url = `https://github.com/${REPO}/issues/new?title=${encodeURIComponent(`Registration: ${data.aoc.trim()}`)}&body=${encodeURIComponent(body)}`;
+        status.classList.remove("form-status--error");
+        status.textContent = "Opening a GitHub issue. Submit that issue to finish registration.";
+        window.location.href = url;
+      });
+    })();
+  </script>
 </body>
 </html>
